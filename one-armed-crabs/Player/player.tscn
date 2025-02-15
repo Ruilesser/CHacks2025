@@ -1,6 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://c1vkaksppf5nn"]
+[gd_scene load_steps=4 format=3 uid="uid://c1vkaksppf5nn"]
+
+[ext_resource type="Texture2D" uid="uid://c45oslirhymbv" path="res://Assets/claw.png" id="1_lc4fw"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_htg1f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_lc4fw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_185r3"]
+size = Vector2(32, 32)
 
 [node name="Player" type="CharacterBody2D"]
 
@@ -8,5 +22,4 @@
 sprite_frames = SubResource("SpriteFrames_htg1f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
+shape = SubResource("RectangleShape2D_185r3")
