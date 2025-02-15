@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dg5gol1uj235a"]
+[gd_scene load_steps=3 format=3 uid="uid://cdjuf36uxi0t0"]
 
 [ext_resource type="Script" path="res://Scenes/start_button.gd" id="1_5gx3a"]
 [ext_resource type="Texture2D" uid="uid://c45oslirhymbv" path="res://Assets/claw.png" id="1_w85fd"]
