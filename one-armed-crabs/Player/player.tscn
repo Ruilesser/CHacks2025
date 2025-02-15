@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1vkaksppf5nn"]
+[gd_scene load_steps=5 format=3 uid="uid://c1vkaksppf5nn"]
 
 [ext_resource type="Texture2D" uid="uid://c45oslirhymbv" path="res://Assets/claw.png" id="1_lc4fw"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_qw6o1"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_htg1f"]
 animations = [{
@@ -17,6 +18,7 @@ animations = [{
 size = Vector2(32, 32)
 
 [node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_qw6o1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_htg1f")
