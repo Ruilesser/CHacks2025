@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://do4lu8x7wtt2h"]
+
+[ext_resource type="Texture2D" uid="uid://dywnxvuwpen3m" path="res://Assets/nut.png" id="1_tqd5g"]
+
+[sub_resource type="GDScript" id="GDScript_pdaq6"]
+script/source = "extends RigidBody2D
+
+var isGrabbed := false
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	isGrabbed = false
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if isGrabbed: #todo: add grab functionality
+		pass
+	
+	pass
+"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5lc7k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_tqd5g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s1x4i"]
+
+[node name="Ball" type="RigidBody2D"]
+script = SubResource("GDScript_pdaq6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.25, 1.25)
+sprite_frames = SubResource("SpriteFrames_5lc7k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_s1x4i")
