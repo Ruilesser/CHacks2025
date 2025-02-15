@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dyj4kphku73rx"]
+
+[ext_resource type="Texture2D" uid="uid://dp7by3ef1qnge" path="res://Assets/other/vegetation_tree_palm4.png" id="1_q6v7m"]
+[ext_resource type="Texture2D" uid="uid://ctstelyh3s5vj" path="res://Assets/other/vegetation_tree_palm5.png" id="2_ip5br"]
+[ext_resource type="Texture2D" uid="uid://b8ciswupp1hnh" path="res://Assets/other/vegetation_tree_palm6.png" id="3_a1drl"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nqrby"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_q6v7m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ip5br")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_a1drl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(133, 60)
+sprite_frames = SubResource("SpriteFrames_nqrby")
+autoplay = "default"
+frame_progress = 0.325348
