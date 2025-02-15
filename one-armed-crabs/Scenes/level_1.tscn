@@ -4,6 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://c1vkaksppf5nn" path="res://Player/player.tscn" id="2_m2ik4"]
 [ext_resource type="Texture2D" uid="uid://82d2sb3n4xj6" path="res://Assets/tile/tilemap.png" id="3_clopi"]
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_im5j2"]
+viewport_path = NodePath("SubViewport")
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x2dkj"]
 size = Vector2(514, 81)
 
@@ -106,6 +109,7 @@ sources/0 = SubResource("TileSetAtlasSource_n7jr8")
 [node name="Level_1" type="Node2D"]
 position = Vector2(256, 298)
 
+<<<<<<< Updated upstream
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
@@ -113,10 +117,34 @@ position = Vector2(-1, 104.5)
 shape = SubResource("RectangleShape2D_x2dkj")
 
 [node name="Background" type="Sprite2D" parent="."]
+=======
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(640, 360)
+
+[node name="Viewport" type="TextureRect" parent="."]
+offset_left = -634.0
+offset_top = -350.0
+offset_right = 646.0
+offset_bottom = 370.0
+texture = SubResource("ViewportTexture_im5j2")
+
+[node name="Main" type="Node" parent="."]
+
+[node name="Level 1" type="Node" parent="Main"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Main/Level 1"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Main/Level 1/StaticBody2D"]
+position = Vector2(-1, 104.5)
+shape = SubResource("RectangleShape2D_x2dkj")
+
+[node name="Background" type="Sprite2D" parent="Main/Level 1"]
+>>>>>>> Stashed changes
 position = Vector2(139.111, -76.25)
 scale = Vector2(2.46389, 2.46389)
 texture = ExtResource("1_otx8m")
 
+<<<<<<< Updated upstream
 [node name="Player" parent="." instance=ExtResource("2_m2ik4")]
 position = Vector2(-198, 51)
 
