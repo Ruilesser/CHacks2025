@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://do4lu8x7wtt2h"]
+[gd_scene load_steps=5 format=3 uid="uid://ocp4yh0hlqiv"]
 
 [ext_resource type="Texture2D" uid="uid://dywnxvuwpen3m" path="res://Assets/nut.png" id="1_tqd5g"]
 
@@ -35,7 +35,9 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s1x4i"]
 
-[node name="Ball" type="RigidBody2D"]
+[node name="Ball" type="RigidBody2D" groups=["Throwable"]]
+collision_layer = 7
+collision_mask = 7
 script = SubResource("GDScript_pdaq6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
