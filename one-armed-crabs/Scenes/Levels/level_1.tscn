@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bwhm3dbfmr5sf" path="res://Scenes/win_condition.tscn" id="4_3vj7u"]
 [ext_resource type="PackedScene" uid="uid://c3s4vcbe7hc7n" path="res://Scenes/Levels/level_2.tscn" id="5_jeiva"]
 [ext_resource type="PackedScene" uid="uid://ocp4yh0hlqiv" path="res://Scenes/ball.tscn" id="6_y7ie1"]
-[ext_resource type="PackedScene" path="res://Scenes/background.tscn" id="7_u3itt"]
+[ext_resource type="PackedScene" uid="uid://drb83he58w85o" path="res://Scenes/background.tscn" id="7_u3itt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qg7wk"]
 size = Vector2(56, 600.75)
@@ -112,7 +112,7 @@ tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_n7jr8")
 
-[node name="Game2" type="Node2D"]
+[node name="Game" type="Node2D"]
 position = Vector2(260.111, 300)
 
 [node name="Camera2D" type="Camera2D" parent="."]
