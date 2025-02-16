@@ -1,17 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://cveydoem6tsri"]
+[gd_scene load_steps=4 format=3 uid="uid://cveydoem6tsri"]
 
 [ext_resource type="Script" path="res://Scripts/winCondition.gd" id="1_74t86"]
+[ext_resource type="Texture2D" uid="uid://t3f36mebo1f3" path="res://Assets/goal/GOAL.png" id="2_5b8iv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_076n3"]
-size = Vector2(54, 44)
+size = Vector2(40, 29)
 
 [node name="WinCondition" type="Node2D"]
+
+[node name="Goal" type="Sprite2D" parent="."]
+position = Vector2(0, -2)
+texture = ExtResource("2_5b8iv")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 3
 script = ExtResource("1_74t86")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1, 7.5)
 shape = SubResource("RectangleShape2D_076n3")
 
 [connection signal="body_entered" from="Area2D" to="Area2D" method="_on_body_entered"]

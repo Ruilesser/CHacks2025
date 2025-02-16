@@ -7,3 +7,4 @@ func _on_body_entered(body: Node2D) -> void:# Replac
 		print(body.get_name())
 	
 	pass 
+	
