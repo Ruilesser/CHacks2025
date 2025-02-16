@@ -10,44 +10,58 @@ extends CharacterBody2D
 @export_range(0, 1) var acceleration = 0.1
 @export_range(0, 1) var decelerate_on_jump_release = 0.2
 
-@export var is_throwing = false
+@export var charging = false
 @export var MAX_CHARGE: float = 600
-var CHARGE_INCREMENT: float = 600
+var CHARGE_INCREMENT: float = 500
 
 var current_charge:float = 0
+var is_throwing = false  # Flag to track if a throw is in progress
 
 var claw: CharacterBody2D = null
 
-var max_rotation = deg_to_rad(-36.0)  # Convert -36 degrees to radians
-var min_rotation = 0.0  # Default rotation
-var throw_rotation: float = deg_to_rad(36.0)  # +36 degrees for throw
+var max_rotation = deg_to_rad(-36.0)  # -36 degrees (charging)
+var min_rotation = 0.0  # Default rotation (idle position)
+var throw_rotation = deg_to_rad(36.0)  # +36 degrees (throwing)
 var charge_ratio = 0.0
+
+var claw_return_speed = 0.05  # Speed at which the claw returns to 0 after throwing
 
 func _ready() -> void:
 	claw = $Claw
 
-
 func _process(delta: float) -> void:
 	if isPlayer2 == false:
+		# Charging mechanic
 		if Input.is_action_pressed("p1_down"):
-			is_throwing = true
 			current_charge = move_toward(current_charge, MAX_CHARGE, delta * CHARGE_INCREMENT)
 		else:
-			current_charge = move_toward(current_charge, 0, delta * CHARGE_INCREMENT)
+			current_charge = move_toward(current_charge, 0, delta * CHARGE_INCREMENT)  # Optional: Reset charge when not holding
+		
+		# Charge to -36 degrees (charging)
+		charge_ratio = current_charge / MAX_CHARGE
+		claw.rotation = lerp(min_rotation, max_rotation, charge_ratio)
+		
+		# If released, execute throw
+		if Input.is_action_just_released("p1_down") and not is_throwing:
+			is_throwing = true
+		
+			# Step 1: Reflect the current charge to a positive value
+			var reflected_rotation = deg_to_rad(abs(current_charge / MAX_CHARGE) * 36)  # Convert to degrees based on charge ratio (reflect to positive)
 
-		# Clamp charge between 0 and MAX_CHARGE
-		current_charge = clamp(current_charge, 0.0, MAX_CHARGE)
+			# Step 2: Instantly snap to reflected positive rotation
+			claw.rotation = lerp(max_rotation, throw_rotation, charge_ratio)
 
-		# Claw rotation logic
-		charge_ratio = current_charge / MAX_CHARGE  # Normalize charge from 0 to 1
-		claw.rotation = clamp(lerp(min_rotation, max_rotation, charge_ratio), max_rotation, min_rotation)
+			# Step 4: Smoothly return to 0 (idle position)
+			while abs(claw.rotation - min_rotation) > 0.01:
+				claw.rotation = move_toward(claw.rotation, min_rotation, claw_return_speed)
+				await get_tree().process_frame
 
-	# Return to idle position after throw
-	if is_throwing and claw.rotation != min_rotation:
-		claw.rotation = move_toward(claw.rotation, min_rotation, delta * 5)  # Smooth return to 0
+			# Reset charge and flag
+			current_charge = 0
+			is_throwing = false
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
+	# Add gravity
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
@@ -59,8 +73,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_released("p1_up") and velocity.y < 0:
 			velocity.y *= decelerate_on_jump_release
 
-		# Get the input direction and handle the movement/deceleration.
-		# As good practice, you should replace UI actions with custom gameplay actions.
+		# Movement handling
 		var direction := Input.get_axis("p1_left", "p1_right")
 		if direction:
 			if is_on_floor():
@@ -70,9 +83,27 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED * deceleration)
 
-	
 	move_and_slide()
 
 func throw():
-	is_throwing = true
-	
+	# Start the throwing phase
+	if not is_throwing:
+		is_throwing = true
+		
+		# Step 1: Reflect the current charge to a positive value
+		var reflected_rotation = deg_to_rad(abs(current_charge / MAX_CHARGE) * 36)  # Convert to degrees based on charge ratio (reflect to positive)
+
+		# Step 2: Instantly snap to reflected positive rotation
+		claw.rotation = reflected_rotation
+
+		# Step 3: Hold for a short time before returning to 0
+		await get_tree().create_timer(0.2).timeout  # Short delay before returning to 0
+
+		# Step 4: Smoothly return to 0 (idle position)
+		while abs(claw.rotation - min_rotation) > 0.01:
+			claw.rotation = move_toward(claw.rotation, min_rotation, claw_return_speed)
+			await get_tree().process_frame
+
+		# Reset charge and flag
+		current_charge = 0
+		is_throwing = false
