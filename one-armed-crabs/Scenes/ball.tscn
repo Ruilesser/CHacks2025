@@ -7,13 +7,43 @@ script/source = "extends RigidBody2D
 
 var isGrabbed := false
 
+var grabber = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	isGrabbed = false
 	pass # Replace with function body.
 
+func _physics_process(delta: float) -> void:
+	if isGrabbed == true:
+		self.position = get_node(grabber).global_position
 
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed(\"p1_down\"):
+		grabber = \"../Player1/Marker2D\"
+	if Input.is_action_just_pressed(\"p2_down\"):
+		grabber = \"../Player2/Marker2D\"
+	
+	var bodies = $Area2D.get_overlapping_areas()
+	for body in bodies:
+		if body.name == \"Player1\" and get_node(\"../Player1\").canPick == true:
+			isGrabbed = true
+			get_node(\"../Player1\").canPick = false
+			get_node(\"../Player2\").canPick = false
+		elif body.name == \"Player2\" and get_node(\"../Player2\").canPick == true:
+			isGrabbed = true
+			get_node(\"../Player1\").canPick = false
+			get_node(\"../Player2\").canPick = false
+	
+	if Input.is_action_just_pressed(\"p1_down\") and grabber == \"../Player1/Marker2D\" and isGrabbed == true:
+		isGrabbed = false
+		get_node(\"../Player1\").canPick = true
+		#apply impulse here
+	elif Input.is_action_just_pressed(\"p2_down\") and grabber == \"../Player2/Marker2D\" and isGrabbed == true:
+		isGrabbed = false
+		get_node(\"../Player2\").canPick = true
+		#apply impulse here
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if isGrabbed: #todo: add grab functionality
@@ -45,4 +75,9 @@ scale = Vector2(1.25, 1.25)
 sprite_frames = SubResource("SpriteFrames_5lc7k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_s1x4i")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_s1x4i")

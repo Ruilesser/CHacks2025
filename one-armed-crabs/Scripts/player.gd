@@ -17,6 +17,7 @@ var CHARGE_INCREMENT: float = 500
 var current_charge: float = 0
 var is_throwing = false  # Flag to track if a throw is in progress
 var is_returning = false  # Flag to track if the claw is returning
+var canPick = true
 
 var claw: CharacterBody2D = null
 var charge_rotation = deg_to_rad(-36.0)  # -36 degrees (charging)
@@ -29,7 +30,6 @@ var push_force = 80.0
 
 func _ready() -> void:
 	claw = $Claw
-	
 
 func _process(delta: float) -> void:
 	if isPlayer2 == false:
