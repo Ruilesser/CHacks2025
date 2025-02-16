@@ -104,6 +104,7 @@ theme_override_constants/separation = 16
 
 [node name="StartButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../Quit")
 theme_override_fonts/font = ExtResource("4_ol3wr")
 theme_override_font_sizes/font_size = 16
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ss6hb")
@@ -137,6 +138,7 @@ text = "CREDITS"
 
 [node name="Quit" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../StartButton")
 theme_override_fonts/font = ExtResource("4_ol3wr")
 theme_override_font_sizes/font_size = 16
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ss6hb")
@@ -243,6 +245,6 @@ volume_db = -19.598
 [connection signal="mouse_entered" from="Panel/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_mouse_entered"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="is_menu" from="OptionsMenu" to="." method="_on_options_menu_is_menu"]
-[connection signal="pressed" from="creditLabel/Back" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="creditLabel/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="creditLabel/Back" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="creditLabel/Back" to="creditLabel/Back" method="_on_pressed"]
