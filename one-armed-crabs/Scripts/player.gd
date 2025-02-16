@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 @onready var claw_grab_box: Area2D = $Claw/ClawGrabBox
 @onready var player_1: CharacterBody2D = $"."
+@onready var animated_sprite = $AnimatedSprite2D
+@onready var animated_claw = $Claw/AnimatedSprite2D
 
 @export var isPlayer2 = false
 
@@ -34,6 +36,7 @@ var charge_ratio = 0.0
 var claw_return_speed = 0.01  # Speed at which the claw returns to 0 after throwing
 
 var push_force = 80.0
+var direction = 1
 
 func _ready() -> void:
 	claw = $Claw
@@ -73,6 +76,7 @@ func _process(delta: float) -> void:
 		if Input.is_action_pressed("p1_grab") and not is_throwing and not is_returning and canPick:
 			# print("omg guys you can grab stuff")
 			closest_area2d_to_clawbox = null # assume no thing is found
+			animated_claw.frame = 1
 			
 			for i in area2d_in_clawbox:
 				if i.position.distance_to(claw_grab_box.position) < closest_throwable_distance:
@@ -87,7 +91,7 @@ func _process(delta: float) -> void:
 		elif Input.is_action_just_released("p1_grab"):
 			canPick = true
 			closest_throwable_distance = INF
-			
+			animated_claw.frame = 0
 			
 	#end of process()
 
@@ -107,7 +111,7 @@ func _physics_process(delta: float) -> void:
 			velocity.y *= decelerate_on_jump_release
 
 		# Movement handling
-		var direction := Input.get_axis("p1_left", "p1_right")
+		direction = Input.get_axis("p1_left", "p1_right")
 		if direction:
 			if is_on_floor():
 				velocity.x = move_toward(velocity.x, direction * SPEED, SPEED * acceleration)
@@ -117,6 +121,7 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0, SPEED * deceleration)
 
 	move_and_slide()
+	handle_movement_animation(direction)
 	
 	# To push the ball, do not touch
 	for i in get_slide_collision_count():
@@ -125,6 +130,18 @@ func _physics_process(delta: float) -> void:
 			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
 
 
+func handle_movement_animation(dir):
+	if !velocity:
+		animated_sprite.play("idle")
+	if velocity:
+		animated_sprite.play("walking")
+		toggle_flip_sprite(dir)
+
+func toggle_flip_sprite(dir):
+	if dir == 1:
+		animated_sprite.flip_h = false
+	if dir == -1:
+		animated_sprite.flip_h = true
 
 
 func _on_claw_grab_box_area_entered(area: Area2D) -> void:
