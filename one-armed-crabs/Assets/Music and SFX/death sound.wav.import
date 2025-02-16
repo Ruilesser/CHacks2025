@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://mnhqo5l6ntfe"
+path="res://.godot/imported/death sound.wav-09aa2dbdf6f54a5bd4b537c6bed516d1.sample"
+
+[deps]
+
+source_file="res://Assets/Music and SFX/death sound.wav"
+dest_files=["res://.godot/imported/death sound.wav-09aa2dbdf6f54a5bd4b537c6bed516d1.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
