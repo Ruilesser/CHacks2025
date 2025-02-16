@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=3 uid="uid://ocp4yh0hlqiv"]
+
+[ext_resource type="Texture2D" uid="uid://dywnxvuwpen3m" path="res://Assets/nut.png" id="1_tqd5g"]
+
+[sub_resource type="GDScript" id="GDScript_pdaq6"]
+script/source = "extends Node2D  # Change from RigidBody2D to Node2D for more control
+
+signal grabbed
+
+var is_grabbed := false
+var grabber = null
+var throw_force := Vector2.ZERO
+
+func _ready() -> void:
+	is_grabbed = false
+	#print(\"am i a throwable? \")
+	#print(self.is_in_group(\"Throwable\"))
+
+func _physics_process(delta: float) -> void:
+	if is_grabbed and grabber:
+		global_position = grabber.global_position  # Attach object to player
+
+func grab(player):
+	is_grabbed = true
+	grabber = player
+
+func release(force: Vector2):
+	is_grabbed = false
+	grabber = null
+	throw_force = force  # Store force for physics
+	set_deferred(\"process_mode\", Node.PROCESS_MODE_INHERIT)  # Re-enable physics
+
+
+func _process(delta: float) -> void:
+	if editor_description == \"grabbed_p1\":
+		pass
+		
+"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5lc7k"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_tqd5g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s1x4i"]
+
+[node name="Ball" type="RigidBody2D" groups=["Throwable"]]
+collision_layer = 7
+collision_mask = 7
+script = SubResource("GDScript_pdaq6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.25, 1.25)
+sprite_frames = SubResource("SpriteFrames_5lc7k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Throwable"]]
+shape = SubResource("CircleShape2D_s1x4i")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["Throwable"]]
+shape = SubResource("CircleShape2D_s1x4i")

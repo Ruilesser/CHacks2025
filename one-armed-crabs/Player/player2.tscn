@@ -95,7 +95,6 @@ script = ExtResource("1_pc43o")
 isPlayer2 = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-z_index = 1
 material = SubResource("ShaderMaterial_7431h")
 sprite_frames = SubResource("SpriteFrames_htg1f")
 animation = &"walking"
@@ -126,7 +125,7 @@ position = Vector2(-20, -19.5)
 shape = SubResource("RectangleShape2D_u7pvs")
 
 [node name="Marker2D" type="Marker2D" parent="Claw"]
-position = Vector2(0, -26)
+position = Vector2(-35, -17)
 
 [node name="ClawGrabBox" type="Area2D" parent="Claw" groups=["Player"]]
 collision_layer = 8

@@ -73,7 +73,7 @@ size = Vector2(32, 17)
 size = Vector2(32, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mottc"]
-size = Vector2(20, 19)
+size = Vector2(25, 29)
 
 [node name="Player1" type="CharacterBody2D" groups=["Player", "Throwable"]]
 collision_layer = 5
@@ -110,17 +110,19 @@ position = Vector2(-20, -19.5)
 shape = SubResource("RectangleShape2D_u7pvs")
 
 [node name="Marker2D" type="Marker2D" parent="Claw"]
-position = Vector2(0, -26)
+position = Vector2(-36, -25)
 
 [node name="ClawGrabBox" type="Area2D" parent="Claw" groups=["Player"]]
 collision_layer = 8
 collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Claw/ClawGrabBox"]
-position = Vector2(-29, -19.5)
+position = Vector2(-31.5, -18.5)
 shape = SubResource("RectangleShape2D_mottc")
+
+[node name="RayCast2D" type="RayCast2D" parent="Claw"]
+position = Vector2(-36, -25)
+rotation = 3.14159
 
 [connection signal="area_entered" from="Claw/ClawGrabBox" to="." method="_on_claw_grab_box_area_entered"]
 [connection signal="area_exited" from="Claw/ClawGrabBox" to="." method="_on_claw_grab_box_area_exited"]
-[connection signal="body_entered" from="Claw/ClawGrabBox" to="." method="_on_claw_grab_box_body_entered"]
-[connection signal="body_exited" from="Claw/ClawGrabBox" to="." method="_on_claw_grab_box_body_exited"]

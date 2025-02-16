@@ -4,6 +4,7 @@ extends CharacterBody2D
 @onready var player_1: CharacterBody2D = $"."
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var animated_claw = $Claw/AnimatedSprite2D
+@onready var marker_2d: Marker2D = $Claw/Marker2D
 
 @export var isPlayer2 = false
 
@@ -26,6 +27,7 @@ var canPick = true
 
 var closest_throwable_distance = INF
 var closest_area2d_to_clawbox = null
+var grabbed_object = null
 var area2d_in_clawbox = []
 
 var claw: CharacterBody2D = null
@@ -54,8 +56,15 @@ func _process(delta: float) -> void:
 		# Throwing action when button is released
 		elif Input.is_action_just_released("p1_down") and not is_throwing and not is_returning:
 			is_throwing = true
+				
 			claw.rotation = lerp(charge_rotation, throw_rotation, charge_ratio)
+			animated_claw.frame = 0
 			
+			# let go of grabbed item
+			if grabbed_object:
+				grabbed_object.reparent(player_1.get_parent())
+				grabbed_object.set_freeze_enabled(false)
+				
 			# Short delay before returning to idle position
 			await get_tree().create_timer(0.1).timeout
 			
@@ -66,9 +75,11 @@ func _process(delta: float) -> void:
 				await get_tree().process_frame
 
 			# Reset charge and flags
+			canPick = true
 			current_charge = 0
 			is_throwing = false
 			is_returning = false  # End of return animation, allow throwing again
+			
 		
 		# Reset charge when not holding the charge button
 		else:
@@ -81,21 +92,28 @@ func _process(delta: float) -> void:
 			animated_claw.frame = 1
 			
 			for i in area2d_in_clawbox:
-				if i.position.distance_to(claw_grab_box.position) < closest_throwable_distance:
-					closest_throwable_distance = i.position.distance_to(claw_grab_box.position)
+				if i.global_position.distance_to(claw_grab_box.global_position) < closest_throwable_distance:
+					closest_throwable_distance = i.global_position.distance_to(claw_grab_box.global_position)
 					closest_area2d_to_clawbox = i
 			
-			if closest_area2d_to_clawbox and closest_area2d_to_clawbox.owner.get_name() == "Ball":
+			if closest_area2d_to_clawbox and closest_area2d_to_clawbox.owner is RigidBody2D: #Ball
 				canPick = false
-				print("my name is: ")
+				# print("my name is: ")
+				grabbed_object = closest_area2d_to_clawbox.owner
+				grabbed_object.set_freeze_enabled(true)
+				if grabbed_object.get_parent():
+					grabbed_object.reparent(marker_2d)
+				else:
+					marker_2d.add_child(grabbed_object)
 				
-				
-		elif Input.is_action_just_released("p1_grab"):
-			canPick = true
-			closest_throwable_distance = INF
-			animated_claw.frame = 0
+			else:
+				animated_claw.frame = 0
+		#elif Input.is_action_just_released("p1_grab"):
+			#canPick = true
+			#closest_throwable_distance = INF
+			#animated_claw.frame = 0
 			
-	#end of process()
+	#end of player1 body
 	else:
 		# Charging mechanic
 		if Input.is_action_pressed("p2_down") and not is_throwing and not is_returning:
@@ -175,6 +193,8 @@ func _physics_process(delta: float) -> void:
 				velocity.x = move_toward(velocity.x, direction * (SPEED + horizontal_jump_velocity), SPEED * acceleration)
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED * deceleration)
+			
+	#end of player 1 input
 	else:
 		# Handle jump.
 		if Input.is_action_just_pressed("p2_up") and is_on_floor():
