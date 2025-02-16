@@ -1,0 +1,63 @@
+[gd_scene load_steps=8 format=3 uid="uid://c1vkaksppf5nn"]
+
+[ext_resource type="Texture2D" uid="uid://c45oslirhymbv" path="res://Assets/claw.png" id="1_lc4fw"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_qw6o1"]
+[ext_resource type="Texture2D" uid="uid://c6jnu5mu5cri7" path="res://Assets/crab.png" id="2_avn36"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_htg1f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_avn36")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_185r3"]
+size = Vector2(24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mww3h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_lc4fw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pqs55"]
+size = Vector2(32, 32)
+
+[node name="Player" type="CharacterBody2D"]
+collision_mask = 3
+script = ExtResource("1_qw6o1")
+isPlayer2 = null
+SPEED = null
+JUMP_VELOCITY = null
+horizontal_jump_velocity = null
+deceleration = null
+acceleration = null
+decelerate_on_jump_release = null
+charging = null
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_htg1f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_185r3")
+
+[node name="Claw" type="CharacterBody2D" parent="."]
+collision_layer = 2
+collision_mask = 3
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Claw"]
+position = Vector2(-20, -11)
+sprite_frames = SubResource("SpriteFrames_mww3h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Claw"]
+position = Vector2(-20, -11)
+shape = SubResource("RectangleShape2D_pqs55")
