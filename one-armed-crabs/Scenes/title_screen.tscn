@@ -1,11 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://cdjuf36uxi0t0"]
+[gd_scene load_steps=15 format=3 uid="uid://cdjuf36uxi0t0"]
 
 [ext_resource type="Script" path="res://Scripts/title_screen.gd" id="1_sild0"]
 [ext_resource type="PackedScene" uid="uid://drb83he58w85o" path="res://Scenes/background.tscn" id="3_8ftl1"]
 [ext_resource type="PackedScene" uid="uid://bx42b3pluv43w" path="res://Scenes/Levels/level_1.tscn" id="4_fbidg"]
 [ext_resource type="FontFile" uid="uid://cb2fntkuysjit" path="res://Assets/Fonts/PixelOperator8-Bold.ttf" id="4_ol3wr"]
 [ext_resource type="FontFile" uid="uid://cbtsaym8ko4m6" path="res://Assets/Fonts/PixelOperator8.ttf" id="5_84je2"]
-[ext_resource type="PackedScene" path="res://Scenes/Options_Menu.tscn" id="5_slvf7"]
+[ext_resource type="PackedScene" uid="uid://cstsw41cy6kyx" path="res://Scenes/Options_Menu.tscn" id="5_slvf7"]
+[ext_resource type="AudioStream" uid="uid://c3vi2rmgbr4qm" path="res://Assets/Music and SFX/BGM 1.mp3" id="7_3nmmt"]
+[ext_resource type="AudioStream" uid="uid://di55fov63uqwd" path="res://Assets/Music and SFX/select sound.wav" id="8_a102t"]
+[ext_resource type="AudioStream" uid="uid://bbf6hlmnekpjl" path="res://Assets/Music and SFX/menu select.wav" id="9_3uw5v"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ss6hb"]
 
@@ -78,8 +81,8 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Background" parent="Panel" instance=ExtResource("3_8ftl1")]
-position = Vector2(-257, -303)
-scale = Vector2(1, 1)
+position = Vector2(-130, -152)
+scale = Vector2(0.5, 0.5)
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
 layout_mode = 1
@@ -149,17 +152,23 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -424.0
-offset_top = 64.0
+offset_top = 28.0
 offset_right = 424.0
-offset_bottom = 125.0
+offset_bottom = 89.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("4_ol3wr")
-theme_override_font_sizes/font_size = 60
+theme_override_font_sizes/font_size = 30
 text = "ONE ARMED CRABS"
+horizontal_alignment = 1
 
 [node name="OptionsMenu" parent="." instance=ExtResource("5_slvf7")]
 visible = false
 layout_mode = 1
+offset_left = -105.0
+offset_top = -46.0
+offset_right = 285.0
+offset_bottom = 123.0
+scale = Vector2(0.5, 0.5)
 
 [node name="creditLabel" type="Panel" parent="."]
 visible = false
@@ -169,12 +178,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -236.5
-offset_top = -182.0
-offset_right = 236.5
-offset_bottom = 182.0
+offset_left = -117.0
+offset_top = -96.0
+offset_right = 356.0
+offset_bottom = 268.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.5, 0.5)
 theme_override_styles/panel = SubResource("StyleBoxFlat_nvbas")
 
 [node name="creditText" type="RichTextLabel" parent="creditLabel"]
@@ -214,9 +224,23 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_vltb0")
 theme_override_styles/normal = SubResource("StyleBoxFlat_cofdh")
 text = "BACK"
 
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_3nmmt")
+
+[node name="Hover_SFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_a102t")
+
+[node name="Select_SFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_3uw5v")
+volume_db = -19.598
+
+[connection signal="mouse_entered" from="Panel/MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_mouse_entered"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="mouse_entered" from="Panel/MarginContainer/VBoxContainer/Options" to="." method="_on_options_mouse_entered"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="mouse_entered" from="Panel/MarginContainer/VBoxContainer/Credits" to="." method="_on_credits_mouse_entered"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Credits" to="." method="_on_credits_pressed"]
+[connection signal="mouse_entered" from="Panel/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_mouse_entered"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="is_menu" from="OptionsMenu" to="." method="_on_options_menu_is_menu"]
 [connection signal="pressed" from="creditLabel/Back" to="." method="_on_back_pressed"]

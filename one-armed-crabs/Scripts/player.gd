@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 @onready var claw_grab_box: Area2D = $Claw/ClawGrabBox
 @onready var player_1: CharacterBody2D = $"."
+@onready var animated_sprite = $AnimatedSprite2D
+@onready var animated_claw = $Claw/AnimatedSprite2D
 
 @export var isPlayer2 = false
 
@@ -31,9 +33,12 @@ var charge_rotation = deg_to_rad(-36.0)  # -36 degrees (charging)
 var default_rotation = 0.0  # Default rotation (idle position)
 var throw_rotation = deg_to_rad(36.0)  # +36 degrees (throwing)
 var charge_ratio = 0.0
-var claw_return_speed = 0.01  # Speed at which the claw returns to 0 after throwing
+var claw_return_speed = 0.03  # Speed at which the claw returns to 0 after throwing
+
+var reflection_ratio = -1
 
 var push_force = 80.0
+var direction = 1
 
 func _ready() -> void:
 	claw = $Claw
@@ -73,6 +78,7 @@ func _process(delta: float) -> void:
 		if Input.is_action_pressed("p1_grab") and not is_throwing and not is_returning and canPick:
 			# print("omg guys you can grab stuff")
 			closest_area2d_to_clawbox = null # assume no thing is found
+			animated_claw.frame = 1
 			
 			for i in area2d_in_clawbox:
 				if i.position.distance_to(claw_grab_box.position) < closest_throwable_distance:
@@ -87,7 +93,61 @@ func _process(delta: float) -> void:
 		elif Input.is_action_just_released("p1_grab"):
 			canPick = true
 			closest_throwable_distance = INF
+			animated_claw.frame = 0
 			
+	#end of process()
+	else:
+		# Charging mechanic
+		if Input.is_action_pressed("p2_down") and not is_throwing and not is_returning:
+			current_charge = move_toward(current_charge, MAX_CHARGE, delta * CHARGE_INCREMENT)
+			charge_ratio = current_charge / MAX_CHARGE
+			claw.rotation = lerp(default_rotation, reflection_ratio * charge_rotation, charge_ratio)
+		
+		# Throwing action when button is released
+		elif Input.is_action_just_released("p2_down") and not is_throwing and not is_returning:
+			is_throwing = true
+			claw.rotation = lerp(reflection_ratio * charge_rotation, reflection_ratio * throw_rotation, charge_ratio)
+			
+			# Short delay before returning to idle position
+			await get_tree().create_timer(0.1).timeout
+			
+			# Start return animation
+			is_returning = true
+			while abs(claw.rotation - default_rotation) > 0.01:
+				if not get_tree():
+					break
+				claw.rotation = move_toward(claw.rotation, default_rotation, claw_return_speed)
+				await get_tree().process_frame
+
+			# Reset charge and flags
+			current_charge = 0
+			is_throwing = false
+			is_returning = false  # End of return animation, allow throwing again
+		
+		# Reset charge when not holding the charge button
+		else:
+			current_charge = move_toward(current_charge, 0, delta * CHARGE_INCREMENT)  # Optional: Reset charge when not holding
+		# Reset charge when not holding the charge button
+		
+		if Input.is_action_pressed("p2_grab") and not is_throwing and not is_returning and canPick:
+			# print("omg guys you can grab stuff")
+			closest_area2d_to_clawbox = null # assume no thing is found
+			animated_claw.frame = 1
+			
+			for i in area2d_in_clawbox:
+				if i.position.distance_to(claw_grab_box.position) < closest_throwable_distance:
+					closest_throwable_distance = i.position.distance_to(claw_grab_box.position)
+					closest_area2d_to_clawbox = i
+			
+			if closest_area2d_to_clawbox and closest_area2d_to_clawbox.owner.get_name() == "Ball":
+				canPick = false
+				print("my name is: ")
+				
+				
+		elif Input.is_action_just_released("p2_grab"):
+			canPick = true
+			closest_throwable_distance = INF
+			animated_claw.frame = 0
 			
 	#end of process()
 
@@ -107,7 +167,24 @@ func _physics_process(delta: float) -> void:
 			velocity.y *= decelerate_on_jump_release
 
 		# Movement handling
-		var direction := Input.get_axis("p1_left", "p1_right")
+		direction = Input.get_axis("p1_left", "p1_right")
+		if direction:
+			if is_on_floor():
+				velocity.x = move_toward(velocity.x, direction * SPEED, SPEED * acceleration)
+			else:
+				velocity.x = move_toward(velocity.x, direction * (SPEED + horizontal_jump_velocity), SPEED * acceleration)
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED * deceleration)
+	else:
+		# Handle jump.
+		if Input.is_action_just_pressed("p2_up") and is_on_floor():
+			velocity.y = JUMP_VELOCITY
+			
+		if Input.is_action_just_released("p2_up") and velocity.y < 0:
+			velocity.y *= decelerate_on_jump_release
+
+		# Movement handling
+		direction = Input.get_axis("p2_left", "p2_right")
 		if direction:
 			if is_on_floor():
 				velocity.x = move_toward(velocity.x, direction * SPEED, SPEED * acceleration)
@@ -117,6 +194,7 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0, SPEED * deceleration)
 
 	move_and_slide()
+	handle_movement_animation(direction)
 	
 	# To push the ball, do not touch
 	for i in get_slide_collision_count():
@@ -125,6 +203,18 @@ func _physics_process(delta: float) -> void:
 			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
 
 
+func handle_movement_animation(dir):
+	if !velocity:
+		animated_sprite.play("idle")
+	if velocity:
+		animated_sprite.play("walking")
+		toggle_flip_sprite(dir)
+
+func toggle_flip_sprite(dir):
+	if dir == 1:
+		animated_sprite.flip_h = true
+	if dir == -1:
+		animated_sprite.flip_h = false
 
 
 func _on_claw_grab_box_area_entered(area: Area2D) -> void:
