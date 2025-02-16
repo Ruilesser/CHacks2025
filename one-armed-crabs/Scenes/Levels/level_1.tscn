@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://bx42b3pluv43w"]
+[gd_scene load_steps=14 format=4 uid="uid://bx42b3pluv43w"]
 
 [ext_resource type="Texture2D" uid="uid://bqing3cecmah1" path="res://Assets/background/background.png" id="1_otx8m"]
 [ext_resource type="Script" path="res://Scenes/Levels/camera_2d.gd" id="1_wcqi4"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://c3s4vcbe7hc7n" path="res://Scenes/Levels/level_2.tscn" id="5_jeiva"]
 [ext_resource type="PackedScene" uid="uid://ocp4yh0hlqiv" path="res://Scenes/ball.tscn" id="6_y7ie1"]
 [ext_resource type="PackedScene" uid="uid://drb83he58w85o" path="res://Scenes/background.tscn" id="7_u3itt"]
+[ext_resource type="PackedScene" uid="uid://if6ii0hbiqfo" path="res://Player/player2.tscn" id="8_kg08y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qg7wk"]
 size = Vector2(56, 600.75)
@@ -157,6 +158,9 @@ dest_scene = ExtResource("5_jeiva")
 
 [node name="Ball" parent="Level 1" instance=ExtResource("6_y7ie1")]
 position = Vector2(-183, 509)
+
+[node name="Player2" parent="Level 1" instance=ExtResource("8_kg08y")]
+position = Vector2(-107, 513)
 
 [node name="Background" parent="." instance=ExtResource("7_u3itt")]
 position = Vector2(-901.111, -661)

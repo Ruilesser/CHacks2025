@@ -1,31 +1,38 @@
-[gd_scene load_steps=18 format=3 uid="uid://c1vkaksppf5nn"]
+[gd_scene load_steps=21 format=3 uid="uid://if6ii0hbiqfo"]
 
-[ext_resource type="Script" path="res://Scripts/player.gd" id="1_qw6o1"]
-[ext_resource type="Texture2D" uid="uid://b0wik5dmlk3uv" path="res://Assets/crab/CRAB0.png" id="2_jl8v0"]
-[ext_resource type="Texture2D" uid="uid://cp4brw8qw41dy" path="res://Assets/crab/CRAB1.png" id="3_cstoe"]
-[ext_resource type="Texture2D" uid="uid://b486ia417mwdu" path="res://Assets/crab/CRAB2.png" id="4_i50c6"]
-[ext_resource type="Texture2D" uid="uid://dulof3rq8c15q" path="res://Assets/crab/CRAB3.png" id="5_eyfwy"]
-[ext_resource type="Texture2D" uid="uid://bu48xcjlqsnag" path="res://Assets/crab/CLAW1.png" id="6_eaoex"]
-[ext_resource type="Texture2D" uid="uid://dt4f8j2t6bp0y" path="res://Assets/crab/CRAB10.png" id="6_sxhuu"]
-[ext_resource type="Texture2D" uid="uid://f0g5arhaggo3" path="res://Assets/crab/CRAB11.png" id="7_q36vx"]
-[ext_resource type="Texture2D" uid="uid://b3adkuxfmylu3" path="res://Assets/crab/CRAB12.png" id="8_ct83n"]
-[ext_resource type="Texture2D" uid="uid://dmy7mclirpmiw" path="res://Assets/crab/CRAB13.png" id="9_aukc5"]
-[ext_resource type="Texture2D" uid="uid://c0hvpwt4xg6sl" path="res://Assets/crab/CLAW2.png" id="11_363rn"]
+[ext_resource type="Shader" path="res://Shaders/colour_tint_shader.gdshader" id="1_62lvd"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_pc43o"]
+[ext_resource type="Texture2D" uid="uid://b0wik5dmlk3uv" path="res://Assets/crab/CRAB0.png" id="2_bmmjx"]
+[ext_resource type="Texture2D" uid="uid://cp4brw8qw41dy" path="res://Assets/crab/CRAB1.png" id="3_i652p"]
+[ext_resource type="Texture2D" uid="uid://b486ia417mwdu" path="res://Assets/crab/CRAB2.png" id="4_l3wrh"]
+[ext_resource type="Texture2D" uid="uid://dulof3rq8c15q" path="res://Assets/crab/CRAB3.png" id="5_e3uta"]
+[ext_resource type="Texture2D" uid="uid://dt4f8j2t6bp0y" path="res://Assets/crab/CRAB10.png" id="6_fjmxc"]
+[ext_resource type="Texture2D" uid="uid://f0g5arhaggo3" path="res://Assets/crab/CRAB11.png" id="7_engvh"]
+[ext_resource type="Texture2D" uid="uid://b3adkuxfmylu3" path="res://Assets/crab/CRAB12.png" id="8_gpujk"]
+[ext_resource type="Texture2D" uid="uid://dmy7mclirpmiw" path="res://Assets/crab/CRAB13.png" id="9_vyao8"]
+[ext_resource type="Texture2D" uid="uid://bu48xcjlqsnag" path="res://Assets/crab/CLAW1.png" id="10_dxjkk"]
+[ext_resource type="Texture2D" uid="uid://c0hvpwt4xg6sl" path="res://Assets/crab/CLAW2.png" id="11_p4l15"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7431h"]
+shader = ExtResource("1_62lvd")
+shader_parameter/colour = Color(0.96, 0.112, 0, 1)
+shader_parameter/tint_factor = 0.5
+shader_parameter/fade = 1.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_htg1f"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_jl8v0")
+"texture": ExtResource("2_bmmjx")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_cstoe")
+"texture": ExtResource("3_i652p")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_i50c6")
+"texture": ExtResource("4_l3wrh")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_eyfwy")
+"texture": ExtResource("5_e3uta")
 }],
 "loop": true,
 "name": &"idle",
@@ -33,16 +40,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_sxhuu")
+"texture": ExtResource("6_fjmxc")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_q36vx")
+"texture": ExtResource("7_engvh")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_ct83n")
+"texture": ExtResource("8_gpujk")
 }, {
 "duration": 1.0,
-"texture": ExtResource("9_aukc5")
+"texture": ExtResource("9_vyao8")
 }],
 "loop": true,
 "name": &"walking",
@@ -52,14 +59,20 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_185r3"]
 size = Vector2(24, 22)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wfemf"]
+shader = ExtResource("1_62lvd")
+shader_parameter/colour = Color(0.960784, 0.113725, 0, 1)
+shader_parameter/tint_factor = 0.5
+shader_parameter/fade = 1.0
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_mww3h"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_eaoex")
+"texture": ExtResource("10_dxjkk")
 }, {
 "duration": 1.0,
-"texture": ExtResource("11_363rn")
+"texture": ExtResource("11_p4l15")
 }],
 "loop": true,
 "name": &"default",
@@ -75,27 +88,31 @@ size = Vector2(32, 15)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mottc"]
 size = Vector2(20, 19)
 
-[node name="Player1" type="CharacterBody2D" groups=["Player", "Throwable"]]
+[node name="Player2" type="CharacterBody2D" groups=["Player", "Throwable"]]
 collision_layer = 5
 collision_mask = 5
-script = ExtResource("1_qw6o1")
+script = ExtResource("1_pc43o")
+isPlayer2 = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1
+material = SubResource("ShaderMaterial_7431h")
 sprite_frames = SubResource("SpriteFrames_htg1f")
 animation = &"walking"
-frame_progress = 0.146676
+frame_progress = 0.848471
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_185r3")
 
 [node name="Claw" type="CharacterBody2D" parent="." groups=["Player"]]
-position = Vector2(-3, 4)
+position = Vector2(3, 4)
+scale = Vector2(-1, 1)
 collision_layer = 2
 collision_mask = 3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Claw"]
+material = SubResource("ShaderMaterial_wfemf")
 position = Vector2(-20, -11)
 sprite_frames = SubResource("SpriteFrames_mww3h")
 
