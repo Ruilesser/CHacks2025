@@ -1,26 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://c1vkaksppf5nn"]
+[gd_scene load_steps=11 format=3 uid="uid://c1vkaksppf5nn"]
 
+[ext_resource type="Texture2D" uid="uid://c45oslirhymbv" path="res://Assets/claw.png" id="1_lc4fw"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_qw6o1"]
-[ext_resource type="Texture2D" uid="uid://b0wik5dmlk3uv" path="res://Assets/crab/CRAB0.png" id="2_jl8v0"]
-[ext_resource type="Texture2D" uid="uid://cp4brw8qw41dy" path="res://Assets/crab/CRAB1.png" id="3_cstoe"]
-[ext_resource type="Texture2D" uid="uid://b486ia417mwdu" path="res://Assets/crab/CRAB2.png" id="4_i50c6"]
-[ext_resource type="Texture2D" uid="uid://dulof3rq8c15q" path="res://Assets/crab/CRAB3.png" id="5_eyfwy"]
-[ext_resource type="Texture2D" uid="uid://bu48xcjlqsnag" path="res://Assets/crab/CLAW1.png" id="6_eaoex"]
+[ext_resource type="Texture2D" uid="uid://c6jnu5mu5cri7" path="res://Assets/crab.png" id="2_avn36"]
+[ext_resource type="Texture2D" uid="uid://dnpdo74siv71" path="res://Assets/play.png" id="4_bxjed"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_htg1f"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_jl8v0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_cstoe")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_i50c6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_eyfwy")
+"texture": ExtResource("2_avn36")
 }],
 "loop": true,
 "name": &"default",
@@ -34,7 +23,7 @@ size = Vector2(24, 24)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_eaoex")
+"texture": ExtResource("1_lc4fw")
 }],
 "loop": true,
 "name": &"default",
@@ -48,7 +37,7 @@ size = Vector2(32, 17)
 size = Vector2(32, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mottc"]
-size = Vector2(20, 19)
+size = Vector2(37, 34)
 
 [node name="Player1" type="CharacterBody2D" groups=["Player", "Throwable"]]
 collision_layer = 5
@@ -56,14 +45,12 @@ collision_mask = 5
 script = ExtResource("1_qw6o1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-z_index = 1
 sprite_frames = SubResource("SpriteFrames_htg1f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_185r3")
 
 [node name="Claw" type="CharacterBody2D" parent="." groups=["Player"]]
-position = Vector2(-3, 4)
 collision_layer = 2
 collision_mask = 3
 
@@ -88,8 +75,13 @@ collision_layer = 8
 collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Claw/ClawGrabBox"]
-position = Vector2(-29, -19.5)
+position = Vector2(-37.5, -27)
 shape = SubResource("RectangleShape2D_mottc")
+
+[node name="Play" type="Sprite2D" parent="Claw/ClawGrabBox"]
+position = Vector2(-37, -27)
+scale = Vector2(0.59375, 1.41667)
+texture = ExtResource("4_bxjed")
 
 [connection signal="area_entered" from="Claw/ClawGrabBox" to="." method="_on_claw_grab_box_area_entered"]
 [connection signal="area_exited" from="Claw/ClawGrabBox" to="." method="_on_claw_grab_box_area_exited"]

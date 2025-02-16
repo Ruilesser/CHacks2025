@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+@onready var claw_grab_box: Area2D = $Claw/ClawGrabBox
+@onready var player_1: CharacterBody2D = $"."
+
 @export var isPlayer2 = false
 
 @export var SPEED = 160.0
@@ -11,7 +14,7 @@ extends CharacterBody2D
 @export_range(0, 1) var decelerate_on_jump_release = 0.2
 
 @export var charging = false
-@export var MAX_CHARGE: float = 600
+@export var MAX_CHARGE: float = 360
 var CHARGE_INCREMENT: float = 500
 
 var current_charge: float = 0
@@ -19,12 +22,16 @@ var is_throwing = false  # Flag to track if a throw is in progress
 var is_returning = false  # Flag to track if the claw is returning
 var canPick = true
 
+var closest_throwable_distance = INF
+var closest_area2d_to_clawbox = null
+var area2d_in_clawbox = []
+
 var claw: CharacterBody2D = null
 var charge_rotation = deg_to_rad(-36.0)  # -36 degrees (charging)
 var default_rotation = 0.0  # Default rotation (idle position)
 var throw_rotation = deg_to_rad(36.0)  # +36 degrees (throwing)
 var charge_ratio = 0.0
-var claw_return_speed = 0.02  # Speed at which the claw returns to 0 after throwing
+var claw_return_speed = 0.01  # Speed at which the claw returns to 0 after throwing
 
 var push_force = 80.0
 
@@ -61,6 +68,30 @@ func _process(delta: float) -> void:
 		# Reset charge when not holding the charge button
 		else:
 			current_charge = move_toward(current_charge, 0, delta * CHARGE_INCREMENT)  # Optional: Reset charge when not holding
+		# Reset charge when not holding the charge button
+		
+		if Input.is_action_pressed("p1_grab") and not is_throwing and not is_returning and canPick:
+			# print("omg guys you can grab stuff")
+			closest_area2d_to_clawbox = null # assume no thing is found
+			
+			for i in area2d_in_clawbox:
+				if i.position.distance_to(claw_grab_box.position) < closest_throwable_distance:
+					closest_throwable_distance = i.position.distance_to(claw_grab_box.position)
+					closest_area2d_to_clawbox = i
+			
+			if closest_area2d_to_clawbox and closest_area2d_to_clawbox.owner.get_name() == "Ball":
+				canPick = false
+				print("my name is: ")
+				
+				
+		elif Input.is_action_just_released("p1_grab"):
+			canPick = true
+			closest_throwable_distance = INF
+			
+			
+	#end of process()
+
+
 
 func _physics_process(delta: float) -> void:
 	# Add gravity
@@ -92,3 +123,27 @@ func _physics_process(delta: float) -> void:
 		var c = get_slide_collision(i)
 		if c.get_collider() is RigidBody2D:
 			c.get_collider().apply_central_impulse(-c.get_normal() * push_force)
+
+
+
+
+func _on_claw_grab_box_area_entered(area: Area2D) -> void:
+	print("area in claw range")
+	area2d_in_clawbox.append(area) # add to items
+
+func _on_claw_grab_box_area_exited(area: Area2D) -> void:
+	area2d_in_clawbox.erase(area) #no longer in the area
+	if area == closest_area2d_to_clawbox:
+		closest_throwable_distance = INF
+
+
+#func _on_claw_grab_box_body_entered(body: Node2D) -> void:
+	#print("body in claw range")
+	#print(body.get_name())
+	#if body is Ball:
+		#area2d_in_clawbox.append(body) # add to items
+#
+#func _on_claw_grab_box_body_exited(body: Node2D) -> void:
+	#area2d_in_clawbox.erase(body) #no longer in the area
+	#if body == closest_area2d_to_clawbox:
+		#closest_throwable_distance = INF
