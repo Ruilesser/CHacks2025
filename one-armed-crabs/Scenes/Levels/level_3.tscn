@@ -1,12 +1,20 @@
-[gd_scene load_steps=11 format=4 uid="uid://cdo7c38mmc78u"]
+[gd_scene load_steps=14 format=4 uid="uid://cdo7c38mmc78u"]
 
+[ext_resource type="Script" path="res://Scripts/game_controller.gd" id="1_q1ema"]
 [ext_resource type="Texture2D" uid="uid://bqing3cecmah1" path="res://Assets/background/background.png" id="1_r2242"]
-[ext_resource type="Texture2D" uid="uid://82d2sb3n4xj6" path="res://Assets/tile/tilemap.png" id="2_mk68e"]
-[ext_resource type="PackedScene" uid="uid://gupvytyhxkii" path="res://Scenes/platform.tscn" id="3_5n8av"]
+[ext_resource type="Texture2D" uid="uid://82d2sb3n4xj6" path="res://Assets/tilemap.png" id="2_mk68e"]
+[ext_resource type="PackedScene" path="res://Scenes/platform.tscn" id="3_5n8av"]
 [ext_resource type="PackedScene" uid="uid://bwhm3dbfmr5sf" path="res://Scenes/win_condition.tscn" id="4_ighvj"]
+[ext_resource type="PackedScene" uid="uid://cstsw41cy6kyx" path="res://Scenes/Options_Menu.tscn" id="5_bxff8"]
+[ext_resource type="PackedScene" uid="uid://c1vkaksppf5nn" path="res://Player/player.tscn" id="7_6s680"]
+[ext_resource type="PackedScene" uid="uid://if6ii0hbiqfo" path="res://Player/player2.tscn" id="8_52o14"]
+[ext_resource type="PackedScene" uid="uid://ocp4yh0hlqiv" path="res://Scenes/ball.tscn" id="9_414ru"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3w4v4"]
-size = Vector2(408, 205)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oefee"]
+size = Vector2(56, 600.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xpp3x"]
+size = Vector2(1312, 20)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hxs33"]
 texture = ExtResource("2_mk68e")
@@ -101,45 +109,8 @@ tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_hxs33")
 
-[sub_resource type="Animation" id="Animation_e5pfk"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-373, 110)]
-}
-
-[sub_resource type="Animation" id="Animation_t01th"]
-resource_name = "move_updown"
-length = 2.0
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(-373, 110), Vector2(-373, -176)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_v6e3t"]
-_data = {
-"RESET": SubResource("Animation_e5pfk"),
-"move_updown": SubResource("Animation_t01th")
-}
-
 [node name="Game2" type="Node2D"]
+script = ExtResource("1_q1ema")
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(0, -56)
@@ -150,13 +121,22 @@ texture = ExtResource("1_r2242")
 
 [node name="Level 3" type="Node" parent="."]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Level 3"]
-position = Vector2(0, -82)
-scale = Vector2(0.645739, 0.645739)
+[node name="WorldBoundary" type="StaticBody2D" parent="Level 3"]
+process_mode = 1
+position = Vector2(-310, 117)
+scale = Vector2(0.5, 0.611)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Level 3/StaticBody2D"]
-position = Vector2(-1, 1)
-shape = SubResource("RectangleShape2D_3w4v4")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level 3/WorldBoundary"]
+position = Vector2(-49, -205.625)
+shape = SubResource("RectangleShape2D_oefee")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Level 3/WorldBoundary"]
+position = Vector2(1283, -194)
+shape = SubResource("RectangleShape2D_oefee")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Level 3/WorldBoundary"]
+position = Vector2(614, -495)
+shape = SubResource("RectangleShape2D_xpp3x")
 
 [node name="Layer0" type="TileMapLayer" parent="."]
 use_parent_material = true
@@ -165,19 +145,33 @@ tile_map_data = PackedByteArray("AADs/wcAAAAAAAAAAADt/wcAAAABAAAAAADu/wcAAAABAAA
 tile_set = SubResource("TileSet_w6tf3")
 
 [node name="Platform1" parent="." instance=ExtResource("3_5n8av")]
-position = Vector2(-373, 110)
+position = Vector2(-126, 99)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Platform1"]
-libraries = {
-"": SubResource("AnimationLibrary_v6e3t")
-}
-autoplay = "move_updown"
+[node name="Platform4" parent="." instance=ExtResource("3_5n8av")]
+position = Vector2(126, 36)
 
 [node name="Platform2" parent="." instance=ExtResource("3_5n8av")]
-position = Vector2(-21, 0)
+position = Vector2(1, 66)
 
 [node name="Platform3" parent="." instance=ExtResource("3_5n8av")]
-position = Vector2(163, -137)
+position = Vector2(-178, -10)
 
 [node name="WinCondition" parent="." instance=ExtResource("4_ighvj")]
-position = Vector2(168, -175)
+position = Vector2(-176, -44)
+
+[node name="OptionsMenu" parent="." instance=ExtResource("5_bxff8")]
+visible = false
+offset_left = -105.0
+offset_top = -46.0
+offset_right = 285.0
+offset_bottom = 123.0
+scale = Vector2(0.5, 0.5)
+
+[node name="Player1" parent="." instance=ExtResource("7_6s680")]
+position = Vector2(168, 107)
+
+[node name="Player2" parent="." instance=ExtResource("8_52o14")]
+position = Vector2(244, 106)
+
+[node name="Ball" parent="." instance=ExtResource("9_414ru")]
+position = Vector2(209, 72)

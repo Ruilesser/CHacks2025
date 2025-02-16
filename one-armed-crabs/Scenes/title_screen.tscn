@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cdjuf36uxi0t0"]
+[gd_scene load_steps=14 format=3 uid="uid://cdjuf36uxi0t0"]
 
 [ext_resource type="Script" path="res://Scripts/title_screen.gd" id="1_sild0"]
 [ext_resource type="PackedScene" uid="uid://drb83he58w85o" path="res://Scenes/background.tscn" id="3_8ftl1"]
@@ -9,8 +9,6 @@
 [ext_resource type="AudioStream" uid="uid://c3vi2rmgbr4qm" path="res://Assets/Music and SFX/BGM 1.mp3" id="7_3nmmt"]
 [ext_resource type="AudioStream" uid="uid://di55fov63uqwd" path="res://Assets/Music and SFX/select sound.wav" id="8_a102t"]
 [ext_resource type="AudioStream" uid="uid://bbf6hlmnekpjl" path="res://Assets/Music and SFX/menu select.wav" id="9_3uw5v"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ss6hb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vltb0"]
 bg_color = Color(1, 1, 1, 1)
@@ -107,7 +105,7 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../Quit")
 theme_override_fonts/font = ExtResource("4_ol3wr")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ss6hb")
+theme_override_styles/focus = SubResource("StyleBoxFlat_vltb0")
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_vltb0")
 theme_override_styles/hover = SubResource("StyleBoxFlat_464bl")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_vltb0")
@@ -118,7 +116,7 @@ text = "PLAY"
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_ol3wr")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ss6hb")
+theme_override_styles/focus = SubResource("StyleBoxFlat_vltb0")
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_vltb0")
 theme_override_styles/hover = SubResource("StyleBoxFlat_464bl")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_vltb0")
@@ -129,7 +127,7 @@ text = "OPTIONS"
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_ol3wr")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ss6hb")
+theme_override_styles/focus = SubResource("StyleBoxFlat_vltb0")
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_vltb0")
 theme_override_styles/hover = SubResource("StyleBoxFlat_464bl")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_vltb0")
@@ -141,7 +139,7 @@ layout_mode = 2
 focus_neighbor_bottom = NodePath("../StartButton")
 theme_override_fonts/font = ExtResource("4_ol3wr")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ss6hb")
+theme_override_styles/focus = SubResource("StyleBoxFlat_vltb0")
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_vltb0")
 theme_override_styles/hover = SubResource("StyleBoxFlat_464bl")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_vltb0")
@@ -219,7 +217,7 @@ offset_right = 445.5
 offset_bottom = 338.0
 theme_override_fonts/font = ExtResource("4_ol3wr")
 theme_override_font_sizes/font_size = 16
-theme_override_styles/focus = SubResource("StyleBoxEmpty_ss6hb")
+theme_override_styles/focus = SubResource("StyleBoxFlat_vltb0")
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_vltb0")
 theme_override_styles/hover = SubResource("StyleBoxFlat_464bl")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_vltb0")
@@ -245,6 +243,6 @@ volume_db = -19.598
 [connection signal="mouse_entered" from="Panel/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_mouse_entered"]
 [connection signal="pressed" from="Panel/MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
 [connection signal="is_menu" from="OptionsMenu" to="." method="_on_options_menu_is_menu"]
-[connection signal="pressed" from="creditLabel/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="creditLabel/Back" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="creditLabel/Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="creditLabel/Back" to="creditLabel/Back" method="_on_pressed"]

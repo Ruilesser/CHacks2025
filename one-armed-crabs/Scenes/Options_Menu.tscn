@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cstsw41cy6kyx"]
+[gd_scene load_steps=10 format=3 uid="uid://cstsw41cy6kyx"]
 
 [ext_resource type="Script" path="res://Scripts/options_script.gd" id="1_ppu66"]
 [ext_resource type="FontFile" uid="uid://cb2fntkuysjit" path="res://Assets/Fonts/PixelOperator8-Bold.ttf" id="2_jqq37"]
@@ -17,6 +17,18 @@ expand_margin_bottom = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pjs2l"]
 bg_color = Color(1, 0.39, 0.39, 0.709804)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.00392157, 0.94902, 0.835294, 1)
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mwv23"]
+bg_color = Color(1, 1, 1, 1)
 border_width_left = 4
 border_width_top = 4
 border_width_right = 4
@@ -77,6 +89,7 @@ expand_margin_bottom = 4.0
 
 [node name="OptionsMenu" type="Control"]
 process_mode = 3
+z_index = 5
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -159,6 +172,8 @@ horizontal_alignment = 1
 [node name="sfx" type="HSlider" parent="Panel/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../music")
+focus_neighbor_bottom = NodePath("../../../Quit")
+focus_next = NodePath("../../../Quit")
 focus_previous = NodePath("../music")
 
 [node name="Panel2" type="Panel" parent="."]
@@ -239,10 +254,30 @@ focus_neighbor_bottom = NodePath("../Panel/VBoxContainer/master")
 focus_next = NodePath("../Panel/VBoxContainer/master")
 theme_override_fonts/font = ExtResource("2_jqq37")
 theme_override_font_sizes/font_size = 28
+theme_override_styles/focus = SubResource("StyleBoxFlat_mwv23")
 theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_g80hc")
 theme_override_styles/hover = SubResource("StyleBoxFlat_rgtlh")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_13os5")
 theme_override_styles/normal = SubResource("StyleBoxFlat_db80c")
 text = "BACK"
 
+[node name="Quit" type="Button" parent="."]
+offset_left = 596.0
+offset_top = 338.5
+offset_right = 739.0
+offset_bottom = 382.5
+focus_neighbor_top = NodePath("../Panel/VBoxContainer/sfx")
+focus_neighbor_bottom = NodePath("../Back_Button")
+focus_next = NodePath("../Back_Button")
+theme_override_fonts/font = ExtResource("2_jqq37")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/focus = SubResource("StyleBoxFlat_mwv23")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxFlat_g80hc")
+theme_override_styles/hover = SubResource("StyleBoxFlat_rgtlh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_13os5")
+theme_override_styles/normal = SubResource("StyleBoxFlat_db80c")
+text = "QUIT"
+
 [connection signal="pressed" from="Back_Button" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_back_button_pressed"]

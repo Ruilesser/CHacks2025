@@ -1,13 +1,15 @@
-[gd_scene load_steps=13 format=4 uid="uid://c3s4vcbe7hc7n"]
+[gd_scene load_steps=15 format=4 uid="uid://c3s4vcbe7hc7n"]
 
+[ext_resource type="Script" path="res://Scripts/game_controller.gd" id="1_c4k81"]
 [ext_resource type="PackedScene" uid="uid://drb83he58w85o" path="res://Scenes/background.tscn" id="1_gkl51"]
 [ext_resource type="PackedScene" uid="uid://c1vkaksppf5nn" path="res://Player/player.tscn" id="2_nhdjl"]
-[ext_resource type="Texture2D" uid="uid://82d2sb3n4xj6" path="res://Assets/tile/tilemap.png" id="3_02bcg"]
+[ext_resource type="Texture2D" uid="uid://82d2sb3n4xj6" path="res://Assets/tilemap.png" id="3_02bcg"]
 [ext_resource type="PackedScene" uid="uid://bwhm3dbfmr5sf" path="res://Scenes/win_condition.tscn" id="4_d8c4g"]
 [ext_resource type="PackedScene" uid="uid://xa78rerxatch" path="res://Scenes/death_node.tscn" id="5_pu66s"]
 [ext_resource type="PackedScene" uid="uid://ocp4yh0hlqiv" path="res://Scenes/ball.tscn" id="6_70jos"]
-[ext_resource type="PackedScene" uid="uid://cdo7c38mmc78u" path="res://Scripts/level_3.tscn" id="6_fa856"]
+[ext_resource type="PackedScene" uid="uid://cdo7c38mmc78u" path="res://Scenes/Levels/level_3.tscn" id="6_fa856"]
 [ext_resource type="PackedScene" uid="uid://if6ii0hbiqfo" path="res://Player/player2.tscn" id="7_a2amt"]
+[ext_resource type="PackedScene" uid="uid://cstsw41cy6kyx" path="res://Scenes/Options_Menu.tscn" id="9_7mko3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x2dkj"]
 size = Vector2(56, 600.75)
@@ -114,17 +116,15 @@ sources/0 = SubResource("TileSetAtlasSource_n7jr8")
 
 [node name="Game" type="Node2D"]
 position = Vector2(260.111, 300)
+script = ExtResource("1_c4k81")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 scale = Vector2(2, 2)
 
 [node name="Level 1" type="Node" parent="."]
 
-[node name="Background2" parent="Level 1" instance=ExtResource("1_gkl51")]
-position = Vector2(-189, -31)
-scale = Vector2(0.5, 0.5)
-
 [node name="WorldBoundary" type="StaticBody2D" parent="Level 1"]
+process_mode = 1
 position = Vector2(-50, 418)
 scale = Vector2(0.5, 0.611)
 
@@ -141,24 +141,42 @@ position = Vector2(614, -495)
 shape = SubResource("RectangleShape2D_ok17n")
 
 [node name="Player" parent="Level 1" instance=ExtResource("2_nhdjl")]
+process_mode = 1
 position = Vector2(-7, 397)
 
 [node name="Player2" parent="Level 1" instance=ExtResource("7_a2amt")]
+process_mode = 1
 position = Vector2(44, 397)
 
 [node name="Layer0" type="TileMapLayer" parent="Level 1"]
+process_mode = 1
 use_parent_material = true
 position = Vector2(322.111, 190)
 tile_map_data = PackedByteArray("AADs/wcAAAAAAAAAAADt/wcAAAABAAAAAADu/wcAAAABAAAAAADv/wcAAAABAAAAAADw/wcAAAABAAAAAADx/wcAAAABAAAAAADy/wcAAAABAAAAAADz/wcAAAABAAAAAAD0/wcAAAABAAAAAAD1/wcAAAABAAAAAAD2/wcAAAABAAAAAAD3/wcAAAABAAAAAAD4/wcAAAABAAAAAAD5/wcAAAABAAAAAAD6/wcAAAAQAAMAAAAFAAcAAAABAAAAAAAGAAcAAAABAAAAAAAHAAcAAAABAAAAAAAIAAcAAAABAAAAAAAJAAcAAAABAAAAAAAKAAcAAAABAAAAAAALAAcAAAABAAAAAAAMAAcAAAABAAAAAAANAAcAAAABAAAAAAAOAAcAAAABAAAAAAAPAAcAAAABAAAAAAAQAAcAAAABAAAAAAARAAcAAAABAAAAAAASAAcAAAABAAAAAAATAAcAAAACAAAAAAATAAgAAAACAAEAAAASAAgAAAABAAEAAAARAAgAAAABAAEAAAAQAAgAAAABAAEAAAAPAAgAAAABAAEAAAAOAAgAAAABAAEAAAANAAgAAAABAAEAAAAMAAgAAAABAAEAAAALAAgAAAABAAEAAAAKAAgAAAABAAEAAAAJAAgAAAABAAEAAAAIAAgAAAABAAEAAAAHAAgAAAABAAEAAAAGAAgAAAABAAEAAAAFAAgAAAABAAEAAAD5/wgAAAABAAEAAAD4/wgAAAABAAEAAAD3/wgAAAABAAEAAAD2/wgAAAABAAEAAAD1/wgAAAABAAEAAAD0/wgAAAABAAEAAADz/wgAAAABAAEAAADy/wgAAAABAAEAAADx/wgAAAABAAEAAADw/wgAAAABAAEAAADv/wgAAAABAAEAAADu/wgAAAABAAEAAADt/wkAAAABAAEAAADu/wkAAAABAAEAAADv/wkAAAABAAEAAADw/wkAAAABAAEAAADx/wkAAAABAAEAAADy/wkAAAABAAEAAADz/wkAAAABAAEAAAD0/wkAAAABAAEAAAD1/wkAAAABAAEAAAD2/wkAAAABAAEAAAD3/wkAAAABAAEAAAAFAAkAAAABAAEAAAAGAAkAAAABAAEAAAAHAAkAAAABAAEAAAAIAAkAAAABAAEAAAAJAAkAAAABAAEAAAAKAAkAAAABAAEAAAALAAkAAAABAAEAAAAMAAkAAAABAAEAAAANAAkAAAABAAEAAAAOAAkAAAABAAEAAAAPAAkAAAABAAEAAAAQAAkAAAABAAEAAAARAAkAAAABAAEAAAASAAkAAAABAAEAAAASAAoAAAABAAEAAAARAAoAAAABAAEAAAAQAAoAAAABAAEAAAAPAAoAAAABAAEAAAAPAAsAAAABAAEAAAAOAAsAAAABAAEAAAANAAoAAAABAAEAAAAMAAoAAAABAAEAAAALAAsAAAABAAEAAAAKAAsAAAABAAEAAAAJAAsAAAABAAEAAAAIAAsAAAABAAEAAAAHAAsAAAABAAEAAAAGAAsAAAABAAEAAAAFAAsAAAABAAEAAAAFAAoAAAABAAEAAAD3/woAAAABAAEAAAD2/woAAAABAAEAAAD1/woAAAABAAEAAAD0/woAAAABAAEAAADz/woAAAABAAEAAADy/woAAAABAAEAAADx/woAAAABAAEAAADw/woAAAABAAEAAADv/woAAAABAAEAAADu/woAAAABAAEAAADt/woAAAABAAEAAAAGAAoAAAAGAAAAAAAHAAoAAAABAAEAAAAIAAoAAAABAAEAAAAJAAoAAAABAAEAAAAKAAoAAAABAAEAAAALAAoAAAABAAEAAAAOAAoAAAABAAEAAADs/wgAAAAAAAEAAADs/wkAAAAAAAEAAADs/woAAAAAAAEAAAATAAkAAAACAAEAAAATAAoAAAACAAEAAADs/wsAAAAAAAEAAAATAAsAAAACAAEAAAD4/wkAAAABAAEAAAD4/woAAAABAAEAAAD5/wkAAAABAAEAAAD5/woAAAABAAEAAAD6/wkAAAAHAAMAAAD6/woAAAAHAAMAAAD6/wgAAAAHAAMAAAD6/wsAAAAAAAIAAAD7/wsAAAAMAAAAAAD8/wsAAAANAAMAAAD9/wsAAAAPAAAAAAD+/wsAAAACAAIAAAAAAAcAAAABAAAAAAAAAAgAAAABAAEAAAAAAAkAAAABAAEAAAAAAAoAAAABAAEAAAABAAcAAAABAAAAAAABAAgAAAABAAEAAAABAAkAAAABAAEAAAABAAoAAAABAAEAAAACAAcAAAABAAAAAAACAAgAAAAGAAAAAAACAAkAAAABAAEAAAACAAoAAAABAAEAAAD+/wcAAAAPAAMAAAD+/wgAAAAGAAMAAAD+/wkAAAAGAAMAAAD+/woAAAAGAAMAAAD//wcAAAABAAAAAAD//wgAAAABAAEAAAD//wkAAAABAAEAAAD//woAAAABAAEAAAAEAAcAAAABAAAAAAADAAcAAAABAAAAAAADAAgAAAABAAEAAAADAAkAAAABAAEAAAAEAAkAAAABAAEAAAAEAAoAAAABAAEAAAAEAAsAAAABAAEAAAAEAAgAAAABAAEAAAADAAoAAAABAAEAAAADAAsAAAABAAEAAAADAAwAAAABAAEAAAACAAsAAAABAAEAAAABAAsAAAABAAEAAAAAAAsAAAABAAEAAAD//wsAAAABAAEAAAA=")
 tile_set = SubResource("TileSet_ttgja")
 
 [node name="WinCondition" parent="Level 1" instance=ExtResource("4_d8c4g")]
+process_mode = 1
 position = Vector2(521, 392)
 dest_scene = ExtResource("6_fa856")
 
 [node name="Death Node" parent="Level 1" instance=ExtResource("5_pu66s")]
+process_mode = 1
 position = Vector2(81.825, 571.235)
 scale = Vector2(0.425, 0.425)
 
 [node name="Ball" parent="Level 1" instance=ExtResource("6_70jos")]
+process_mode = 1
 position = Vector2(115, 320)
+
+[node name="Background2" parent="." instance=ExtResource("1_gkl51")]
+position = Vector2(-449.111, -331)
+scale = Vector2(0.5, 0.5)
+
+[node name="OptionsMenu" parent="." instance=ExtResource("9_7mko3")]
+visible = false
+offset_left = -105.0
+offset_top = -46.0
+offset_right = 285.0
+offset_bottom = 123.0
+scale = Vector2(0.5, 0.5)
