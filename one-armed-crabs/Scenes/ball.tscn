@@ -3,7 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://dywnxvuwpen3m" path="res://Assets/nut.png" id="1_tqd5g"]
 
 [sub_resource type="GDScript" id="GDScript_pdaq6"]
-script/source = "extends Node2D  # Change from RigidBody2D to Node2D for more control
+script/source = "extends RigidBody2D  # Change from RigidBody2D to Node2D for more control
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 var is_grabbed := false
 var grabber = null
@@ -11,6 +12,8 @@ var throw_force := Vector2.ZERO
 
 func _ready() -> void:
 	is_grabbed = false
+	#print(\"am i a throwable? \")
+	#print(self.is_in_group(\"Throwable\"))
 
 func _physics_process(delta: float) -> void:
 	if is_grabbed and grabber:
@@ -25,6 +28,15 @@ func release(force: Vector2):
 	grabber = null
 	throw_force = force  # Store force for physics
 	set_deferred(\"process_mode\", Node.PROCESS_MODE_INHERIT)  # Re-enable physics
+
+
+func _process(delta: float) -> void:
+	if is_freeze_enabled():	
+		collision_shape_2d.set_disabled(true)
+		global_position = get_parent().global_position
+	else:
+		collision_shape_2d.set_disabled(false)
+		
 "
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5lc7k"]
@@ -41,6 +53,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_s1x4i"]
 
 [node name="Ball" type="RigidBody2D" groups=["Throwable"]]
+z_index = 5
 collision_layer = 7
 collision_mask = 7
 script = SubResource("GDScript_pdaq6")
@@ -49,10 +62,10 @@ script = SubResource("GDScript_pdaq6")
 scale = Vector2(1.25, 1.25)
 sprite_frames = SubResource("SpriteFrames_5lc7k")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["Throwable"]]
 shape = SubResource("CircleShape2D_s1x4i")
 
 [node name="Area2D" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["Throwable"]]
 shape = SubResource("CircleShape2D_s1x4i")

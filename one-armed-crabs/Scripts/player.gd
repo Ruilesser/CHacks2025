@@ -5,6 +5,7 @@ extends CharacterBody2D
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var animated_claw = $Claw/AnimatedSprite2D
 @onready var marker_2d: Marker2D = $Claw/Marker2D
+@onready var aim_marker: Marker2D = $Claw/AimMarker
 
 @export var isPlayer2 = false
 
@@ -64,6 +65,9 @@ func _process(delta: float) -> void:
 			if grabbed_object:
 				grabbed_object.reparent(player_1.get_parent())
 				grabbed_object.set_freeze_enabled(false)
+				var distance = aim_marker.global_position - marker_2d.global_position
+				
+				grabbed_object.set_linear_velocity(distance * current_charge/30 )
 				
 			# Short delay before returning to idle position
 			await get_tree().create_timer(0.1).timeout
