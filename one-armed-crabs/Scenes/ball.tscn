@@ -3,53 +3,28 @@
 [ext_resource type="Texture2D" uid="uid://dywnxvuwpen3m" path="res://Assets/nut.png" id="1_tqd5g"]
 
 [sub_resource type="GDScript" id="GDScript_pdaq6"]
-script/source = "extends RigidBody2D
+script/source = "extends Node2D  # Change from RigidBody2D to Node2D for more control
 
-var isGrabbed := false
-
+var is_grabbed := false
 var grabber = null
+var throw_force := Vector2.ZERO
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	isGrabbed = false
-	pass # Replace with function body.
+	is_grabbed = false
 
 func _physics_process(delta: float) -> void:
-	if isGrabbed == true:
-		self.position = get_node(grabber).global_position
+	if is_grabbed and grabber:
+		global_position = grabber.global_position  # Attach object to player
 
-func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed(\"p1_down\"):
-		grabber = \"../Player1/Marker2D\"
-	if Input.is_action_just_pressed(\"p2_down\"):
-		grabber = \"../Player2/Marker2D\"
-	
-	var bodies = $Area2D.get_overlapping_areas()
-	for body in bodies:
-		if body.name == \"Player1\" and get_node(\"../Player1\").canPick == true:
-			isGrabbed = true
-			get_node(\"../Player1\").canPick = false
-			get_node(\"../Player2\").canPick = false
-		elif body.name == \"Player2\" and get_node(\"../Player2\").canPick == true:
-			isGrabbed = true
-			get_node(\"../Player1\").canPick = false
-			get_node(\"../Player2\").canPick = false
-	
-	if Input.is_action_just_pressed(\"p1_down\") and grabber == \"../Player1/Marker2D\" and isGrabbed == true:
-		isGrabbed = false
-		get_node(\"../Player1\").canPick = true
-		#apply impulse here
-	elif Input.is_action_just_pressed(\"p2_down\") and grabber == \"../Player2/Marker2D\" and isGrabbed == true:
-		isGrabbed = false
-		get_node(\"../Player2\").canPick = true
-		#apply impulse here
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if isGrabbed: #todo: add grab functionality
-		pass
-	
-	pass
+func grab(player):
+	is_grabbed = true
+	grabber = player
+
+func release(force: Vector2):
+	is_grabbed = false
+	grabber = null
+	throw_force = force  # Store force for physics
+	set_deferred(\"process_mode\", Node.PROCESS_MODE_INHERIT)  # Re-enable physics
 "
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5lc7k"]

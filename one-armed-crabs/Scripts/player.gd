@@ -87,6 +87,7 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	
+	# To push the ball, do not touch
 	for i in get_slide_collision_count():
 		var c = get_slide_collision(i)
 		if c.get_collider() is RigidBody2D:
