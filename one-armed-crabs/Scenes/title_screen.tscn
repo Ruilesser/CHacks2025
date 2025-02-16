@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cdjuf36uxi0t0"]
+[gd_scene load_steps=4 format=3 uid="uid://dbf37ahjmywhy"]
 
-[ext_resource type="Script" path="res://Scenes/start_button.gd" id="1_5gx3a"]
-[ext_resource type="Texture2D" uid="uid://c45oslirhymbv" path="res://Assets/claw.png" id="1_w85fd"]
+[ext_resource type="Script" path="res://Scripts/start_button.gd" id="1_5gx3a"]
+[ext_resource type="Texture2D" uid="uid://dnpdo74siv71" path="res://Assets/play.png" id="1_ke3hf"]
+[ext_resource type="Script" path="res://Scripts/creditButton.gd" id="3_vh5xs"]
 
 [node name="TitleScreen" type="Control"]
 layout_mode = 3
@@ -13,29 +14,50 @@ offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="creditButton" type="MenuButton" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.922
-anchor_top = 0.925
-anchor_right = 0.978
-anchor_bottom = 0.965
-offset_left = -0.160034
-offset_top = -6.10352e-05
-offset_right = 0.159912
-offset_bottom = 0.199951
-text = "Credits"
-
-[node name="PopupMenu" type="PopupMenu" parent="creditButton"]
-
 [node name="startButton" type="TextureButton" parent="."]
 layout_mode = 0
-offset_left = 522.0
-offset_top = 592.0
-offset_right = 695.0
-offset_bottom = 632.0
-texture_normal = ExtResource("1_w85fd")
+offset_left = 568.0
+offset_top = 490.0
+offset_right = 728.0
+offset_bottom = 550.0
+texture_normal = ExtResource("1_ke3hf")
 stretch_mode = 0
 script = ExtResource("1_5gx3a")
 
+[node name="creditButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1202.0
+offset_top = 673.0
+offset_right = 1265.0
+offset_bottom = 704.0
+text = "Credits"
+script = ExtResource("3_vh5xs")
+
+[node name="creditLabel" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 422.0
+offset_top = 249.0
+offset_right = 829.0
+offset_bottom = 613.0
+
+[node name="ColorRect" type="ColorRect" parent="creditLabel"]
+layout_mode = 2
+color = Color(0.15992, 0.286167, 0.120884, 1)
+
+[node name="creditText" type="RichTextLabel" parent="creditLabel"]
+layout_mode = 2
+bbcode_enabled = true
+text = " [b][u]Credits[/u][/b]
+
+	[u]Programming and Game Design[/u]
+	 Ali Almishri
+	• Farshad Islam
+	• Linus Yang
+
+	[b]Artwork[/b]
+	• Beach assets by \"Crusenho\"
+	* Crab spritework by Ali Alimshri"
+
 [connection signal="pressed" from="startButton" to="startButton" method="_on_pressed"]
+[connection signal="pressed" from="creditButton" to="creditButton" method="_on_pressed"]
