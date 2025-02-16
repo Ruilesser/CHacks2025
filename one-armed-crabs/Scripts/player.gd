@@ -24,7 +24,7 @@ var charge_rotation = deg_to_rad(-36.0)  # -36 degrees (charging)
 var default_rotation = 0.0  # Default rotation (idle position)
 var throw_rotation = deg_to_rad(36.0)  # +36 degrees (throwing)
 var charge_ratio = 0.0
-var claw_return_speed = 0.01  # Speed at which the claw returns to 0 after throwing
+var claw_return_speed = 0.02  # Speed at which the claw returns to 0 after throwing
 
 var push_force = 80.0
 
