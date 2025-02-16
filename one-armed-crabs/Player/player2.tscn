@@ -13,6 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://bu48xcjlqsnag" path="res://Assets/crab/CLAW1.png" id="10_dxjkk"]
 [ext_resource type="Texture2D" uid="uid://c0hvpwt4xg6sl" path="res://Assets/crab/CLAW2.png" id="11_p4l15"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_185r3"]
+size = Vector2(24, 22)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7431h"]
 shader = ExtResource("1_62lvd")
 shader_parameter/colour = Color(0.96, 0.112, 0, 1)
@@ -56,9 +59,6 @@ animations = [{
 "speed": 4.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_185r3"]
-size = Vector2(24, 22)
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wfemf"]
 shader = ExtResource("1_62lvd")
 shader_parameter/colour = Color(0.960784, 0.113725, 0, 1)
@@ -94,6 +94,12 @@ collision_mask = 5
 script = ExtResource("1_pc43o")
 isPlayer2 = true
 
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_185r3")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_7431h")
 sprite_frames = SubResource("SpriteFrames_htg1f")
@@ -126,6 +132,9 @@ shape = SubResource("RectangleShape2D_u7pvs")
 
 [node name="Marker2D" type="Marker2D" parent="Claw"]
 position = Vector2(-35, -17)
+
+[node name="AimMarker" type="Marker2D" parent="Claw"]
+position = Vector2(-35, -57)
 
 [node name="ClawGrabBox" type="Area2D" parent="Claw" groups=["Player"]]
 collision_layer = 8
