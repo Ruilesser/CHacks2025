@@ -114,6 +114,8 @@ func _process(delta: float) -> void:
 			# Start return animation
 			is_returning = true
 			while abs(claw.rotation - default_rotation) > 0.01:
+				if not get_tree():
+					break
 				claw.rotation = move_toward(claw.rotation, default_rotation, claw_return_speed)
 				await get_tree().process_frame
 
@@ -210,9 +212,9 @@ func handle_movement_animation(dir):
 
 func toggle_flip_sprite(dir):
 	if dir == 1:
-		animated_sprite.flip_h = false
-	if dir == -1:
 		animated_sprite.flip_h = true
+	if dir == -1:
+		animated_sprite.flip_h = false
 
 
 func _on_claw_grab_box_area_entered(area: Area2D) -> void:

@@ -78,8 +78,8 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Background" parent="Panel" instance=ExtResource("3_8ftl1")]
-position = Vector2(-257, -303)
-scale = Vector2(1, 1)
+position = Vector2(-130, -152)
+scale = Vector2(0.5, 0.5)
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel"]
 layout_mode = 1
@@ -149,17 +149,23 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -424.0
-offset_top = 64.0
+offset_top = 28.0
 offset_right = 424.0
-offset_bottom = 125.0
+offset_bottom = 89.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("4_ol3wr")
-theme_override_font_sizes/font_size = 60
+theme_override_font_sizes/font_size = 30
 text = "ONE ARMED CRABS"
+horizontal_alignment = 1
 
 [node name="OptionsMenu" parent="." instance=ExtResource("5_slvf7")]
 visible = false
 layout_mode = 1
+offset_left = -105.0
+offset_top = -46.0
+offset_right = 285.0
+offset_bottom = 123.0
+scale = Vector2(0.5, 0.5)
 
 [node name="creditLabel" type="Panel" parent="."]
 visible = false
@@ -169,12 +175,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -236.5
-offset_top = -182.0
-offset_right = 236.5
-offset_bottom = 182.0
+offset_left = -117.0
+offset_top = -96.0
+offset_right = 356.0
+offset_bottom = 268.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.5, 0.5)
 theme_override_styles/panel = SubResource("StyleBoxFlat_nvbas")
 
 [node name="creditText" type="RichTextLabel" parent="creditLabel"]

@@ -118,8 +118,8 @@ position = Vector2(-1, 104.5)
 shape = SubResource("RectangleShape2D_x2dkj")
 
 [node name="Background" type="Sprite2D" parent="Level 1"]
-position = Vector2(378.222, 180.75)
-scale = Vector2(2.46389, 2.46389)
+position = Vector2(320, 240)
+scale = Vector2(2, 2)
 texture = ExtResource("1_cpgu2")
 
 [node name="Player" parent="Level 1" instance=ExtResource("2_4v13g")]
