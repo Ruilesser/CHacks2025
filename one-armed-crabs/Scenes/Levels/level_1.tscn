@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://bx42b3pluv43w"]
+[gd_scene load_steps=13 format=4 uid="uid://bx42b3pluv43w"]
 
 [ext_resource type="Texture2D" uid="uid://bqing3cecmah1" path="res://Assets/background/background.png" id="1_otx8m"]
 [ext_resource type="Script" path="res://Scenes/Levels/camera_2d.gd" id="1_wcqi4"]
@@ -9,8 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://ocp4yh0hlqiv" path="res://Scenes/ball.tscn" id="6_y7ie1"]
 [ext_resource type="PackedScene" path="res://Scenes/background.tscn" id="7_u3itt"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x2dkj"]
-size = Vector2(514, 81)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qg7wk"]
+size = Vector2(56, 600.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3wfpg"]
+size = Vector2(1312, 20)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n7jr8"]
 texture = ExtResource("3_clopi")
@@ -118,12 +121,20 @@ script = ExtResource("1_wcqi4")
 
 [node name="Level 1" type="Node" parent="."]
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Level 1"]
-position = Vector2(260.111, 300)
+[node name="WorldBoundary" type="StaticBody2D" parent="Level 1"]
+position = Vector2(-354, 431)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Level 1/StaticBody2D"]
-position = Vector2(-1, 104.5)
-shape = SubResource("RectangleShape2D_x2dkj")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level 1/WorldBoundary"]
+position = Vector2(-49, -205.625)
+shape = SubResource("RectangleShape2D_qg7wk")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Level 1/WorldBoundary"]
+position = Vector2(1283, -194)
+shape = SubResource("RectangleShape2D_qg7wk")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Level 1/WorldBoundary"]
+position = Vector2(614, -495)
+shape = SubResource("RectangleShape2D_3wfpg")
 
 [node name="Background" type="Sprite2D" parent="Level 1"]
 visible = false
