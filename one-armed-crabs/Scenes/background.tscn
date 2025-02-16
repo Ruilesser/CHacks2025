@@ -1,0 +1,90 @@
+[gd_scene load_steps=14 format=3 uid="uid://drb83he58w85o"]
+
+[ext_resource type="Texture2D" uid="uid://e7exstikmury" path="res://Assets/background/background_sky.png" id="1_rhw2a"]
+[ext_resource type="Texture2D" uid="uid://bqing3cecmah1" path="res://Assets/background/background.png" id="1_wqk10"]
+[ext_resource type="Shader" path="res://Shaders/scroll_1.gdshader" id="2_ct8id"]
+[ext_resource type="Texture2D" uid="uid://bi6o4kdryv477" path="res://Assets/background/background_sand.png" id="2_ynq7f"]
+[ext_resource type="Shader" path="res://Shaders/scroll_5.gdshader" id="3_fgr1i"]
+[ext_resource type="Texture2D" uid="uid://dmrf7wsw3b7j" path="res://Assets/background/background_ocean.png" id="3_t8xeo"]
+[ext_resource type="Texture2D" uid="uid://d0q5qws3fbv8c" path="res://Assets/background/background_clouds_big.png" id="4_vi47f"]
+[ext_resource type="Shader" path="res://Shaders/scroll_2.gdshader" id="5_43083"]
+[ext_resource type="Texture2D" uid="uid://dmv7ei3tl3iti" path="res://Assets/background/background_clouds_medium.png" id="5_x1s7m"]
+[ext_resource type="Texture2D" uid="uid://cw4w6aae3ysmb" path="res://Assets/background/background_clouds_small.png" id="6_4uwql"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8s7ki"]
+shader = ExtResource("2_ct8id")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mnxih"]
+shader = ExtResource("5_43083")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lpfyh"]
+shader = ExtResource("3_fgr1i")
+
+[node name="Background" type="Node2D"]
+position = Vector2(257, 301)
+scale = Vector2(4.01111, 4.01111)
+
+[node name="Background" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(257, 301)
+scale = Vector2(4.01111, 4.01111)
+texture = ExtResource("1_wqk10")
+
+[node name="BackgroundSky" type="TextureRect" parent="."]
+texture_repeat = 2
+offset_left = 257.0
+offset_top = 301.0
+offset_right = 257.0
+offset_bottom = 301.0
+scale = Vector2(4.011, 4.011)
+texture = ExtResource("1_rhw2a")
+
+[node name="BackgroundSand" type="TextureRect" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_8s7ki")
+offset_left = 257.0
+offset_top = 301.0
+offset_right = 257.0
+offset_bottom = 301.0
+scale = Vector2(4.011, 4.011)
+texture = ExtResource("2_ynq7f")
+
+[node name="BackgroundOcean" type="TextureRect" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_mnxih")
+offset_left = 257.0
+offset_top = 301.0
+offset_right = 257.0
+offset_bottom = 301.0
+scale = Vector2(4.011, 4.011)
+texture = ExtResource("3_t8xeo")
+
+[node name="BackgroundCloudsBig" type="TextureRect" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_lpfyh")
+offset_left = 257.0
+offset_top = 301.0
+offset_right = 257.0
+offset_bottom = 301.0
+scale = Vector2(4.011, 4.011)
+texture = ExtResource("4_vi47f")
+
+[node name="BackgroundCloudsMedium" type="TextureRect" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_lpfyh")
+offset_left = 257.0
+offset_top = 301.0
+offset_right = 257.0
+offset_bottom = 301.0
+scale = Vector2(4.011, 4.011)
+texture = ExtResource("5_x1s7m")
+
+[node name="BackgroundCloudsSmall" type="TextureRect" parent="."]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_lpfyh")
+offset_left = 257.0
+offset_top = 301.0
+offset_right = 257.0
+offset_bottom = 301.0
+scale = Vector2(4.011, 4.011)
+texture = ExtResource("6_4uwql")

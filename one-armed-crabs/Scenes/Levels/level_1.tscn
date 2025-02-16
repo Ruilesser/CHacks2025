@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://bx42b3pluv43w"]
+[gd_scene load_steps=12 format=4 uid="uid://bx42b3pluv43w"]
 
 [ext_resource type="Texture2D" uid="uid://bqing3cecmah1" path="res://Assets/background/background.png" id="1_otx8m"]
 [ext_resource type="Script" path="res://Scenes/Levels/camera_2d.gd" id="1_wcqi4"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bwhm3dbfmr5sf" path="res://Scenes/win_condition.tscn" id="4_3vj7u"]
 [ext_resource type="PackedScene" uid="uid://c3s4vcbe7hc7n" path="res://Scenes/Levels/level_2.tscn" id="5_jeiva"]
 [ext_resource type="PackedScene" uid="uid://ocp4yh0hlqiv" path="res://Scenes/ball.tscn" id="6_y7ie1"]
+[ext_resource type="PackedScene" uid="uid://drb83he58w85o" path="res://Scenes/background.tscn" id="7_u3itt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x2dkj"]
 size = Vector2(514, 81)
@@ -125,6 +126,7 @@ position = Vector2(-1, 104.5)
 shape = SubResource("RectangleShape2D_x2dkj")
 
 [node name="Background" type="Sprite2D" parent="Level 1"]
+visible = false
 position = Vector2(257, 301)
 scale = Vector2(4.01111, 4.01111)
 texture = ExtResource("1_otx8m")
@@ -144,3 +146,7 @@ dest_scene = ExtResource("5_jeiva")
 
 [node name="Ball" parent="Level 1" instance=ExtResource("6_y7ie1")]
 position = Vector2(-183, 509)
+
+[node name="Background" parent="." instance=ExtResource("7_u3itt")]
+position = Vector2(-901.111, -661)
+scale = Vector2(1, 1)

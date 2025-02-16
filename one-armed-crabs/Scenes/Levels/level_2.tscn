@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=4 uid="uid://c3s4vcbe7hc7n"]
 
-[ext_resource type="Texture2D" uid="uid://bqing3cecmah1" path="res://Assets/background/background.png" id="1_lf0xy"]
+[ext_resource type="PackedScene" uid="uid://drb83he58w85o" path="res://Scenes/background.tscn" id="1_gkl51"]
 [ext_resource type="PackedScene" uid="uid://c1vkaksppf5nn" path="res://Player/player.tscn" id="2_nhdjl"]
 [ext_resource type="Texture2D" uid="uid://82d2sb3n4xj6" path="res://Assets/tile/tilemap.png" id="3_02bcg"]
 [ext_resource type="PackedScene" uid="uid://bwhm3dbfmr5sf" path="res://Scenes/win_condition.tscn" id="4_d8c4g"]
@@ -120,10 +120,7 @@ position = Vector2(260.111, 300)
 position = Vector2(-1, 104.5)
 shape = SubResource("RectangleShape2D_x2dkj")
 
-[node name="Background" type="Sprite2D" parent="Level 1"]
-position = Vector2(257, 301)
-scale = Vector2(4.01111, 4.01111)
-texture = ExtResource("1_lf0xy")
+[node name="Background" parent="Level 1" instance=ExtResource("1_gkl51")]
 
 [node name="Player" parent="Level 1" instance=ExtResource("2_nhdjl")]
 position = Vector2(-290, 509)
