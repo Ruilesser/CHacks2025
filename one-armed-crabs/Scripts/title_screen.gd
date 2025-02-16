@@ -13,7 +13,7 @@ func _ready() -> void:
 func _on_start_button_pressed() -> void:
 	print("level 1 start")
 	get_tree().change_scene_to_packed(dest_scene) #go to level 1 scene
-	cam_move(cam2d, "position", Vector2(0,0), 4.0)
+	cam_move(cam2d, "position", Vector2(0,-300), 4.0)
 	
 func _on_options_pressed() -> void:
 	print("Options")

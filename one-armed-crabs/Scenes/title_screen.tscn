@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bx42b3pluv43w" path="res://Scenes/Levels/level_1.tscn" id="4_fbidg"]
 [ext_resource type="FontFile" uid="uid://cb2fntkuysjit" path="res://Assets/Fonts/PixelOperator8-Bold.ttf" id="4_ol3wr"]
 [ext_resource type="FontFile" uid="uid://cbtsaym8ko4m6" path="res://Assets/Fonts/PixelOperator8.ttf" id="5_84je2"]
-[ext_resource type="PackedScene" uid="uid://cstsw41cy6kyx" path="res://Scenes/Options_Menu.tscn" id="5_slvf7"]
+[ext_resource type="PackedScene" path="res://Scenes/Options_Menu.tscn" id="5_slvf7"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o2vj8"]
 texture = ExtResource("1_u8jby")

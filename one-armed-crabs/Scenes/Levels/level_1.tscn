@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=4 uid="uid://bx42b3pluv43w"]
+[gd_scene load_steps=11 format=4 uid="uid://bx42b3pluv43w"]
 
 [ext_resource type="Texture2D" uid="uid://bqing3cecmah1" path="res://Assets/background/background.png" id="1_otx8m"]
+[ext_resource type="Script" path="res://Scenes/Levels/camera_2d.gd" id="1_wcqi4"]
 [ext_resource type="PackedScene" uid="uid://c1vkaksppf5nn" path="res://Player/player.tscn" id="2_m2ik4"]
 [ext_resource type="Texture2D" uid="uid://82d2sb3n4xj6" path="res://Assets/tile/tilemap.png" id="3_clopi"]
 [ext_resource type="PackedScene" uid="uid://bwhm3dbfmr5sf" path="res://Scenes/win_condition.tscn" id="4_3vj7u"]
@@ -112,6 +113,7 @@ position = Vector2(260.111, 300)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 scale = Vector2(2, 2)
+script = ExtResource("1_wcqi4")
 
 [node name="Level 1" type="Node" parent="."]
 
