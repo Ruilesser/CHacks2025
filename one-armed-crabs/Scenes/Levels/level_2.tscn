@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://c3s4vcbe7hc7n"]
+[gd_scene load_steps=13 format=4 uid="uid://c3s4vcbe7hc7n"]
 
 [ext_resource type="PackedScene" uid="uid://drb83he58w85o" path="res://Scenes/background.tscn" id="1_gkl51"]
 [ext_resource type="PackedScene" uid="uid://c1vkaksppf5nn" path="res://Player/player.tscn" id="2_nhdjl"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bwhm3dbfmr5sf" path="res://Scenes/win_condition.tscn" id="4_d8c4g"]
 [ext_resource type="PackedScene" uid="uid://xa78rerxatch" path="res://Scenes/death_node.tscn" id="5_pu66s"]
 [ext_resource type="PackedScene" uid="uid://ocp4yh0hlqiv" path="res://Scenes/ball.tscn" id="6_70jos"]
+[ext_resource type="PackedScene" uid="uid://cdo7c38mmc78u" path="res://Scenes/Levels/level_3.tscn" id="6_fa856"]
 [ext_resource type="PackedScene" uid="uid://if6ii0hbiqfo" path="res://Player/player2.tscn" id="7_a2amt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x2dkj"]
@@ -153,6 +154,7 @@ tile_set = SubResource("TileSet_ttgja")
 
 [node name="WinCondition" parent="Level 1" instance=ExtResource("4_d8c4g")]
 position = Vector2(521, 392)
+dest_scene = ExtResource("6_fa856")
 
 [node name="Death Node" parent="Level 1" instance=ExtResource("5_pu66s")]
 position = Vector2(81.825, 571.235)
