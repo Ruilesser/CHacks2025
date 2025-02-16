@@ -104,6 +104,7 @@ theme_override_constants/separation = 16
 
 [node name="StartButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../Quit")
 theme_override_fonts/font = ExtResource("4_ol3wr")
 theme_override_font_sizes/font_size = 16
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ss6hb")
@@ -137,6 +138,7 @@ text = "CREDITS"
 
 [node name="Quit" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_bottom = NodePath("../StartButton")
 theme_override_fonts/font = ExtResource("4_ol3wr")
 theme_override_font_sizes/font_size = 16
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ss6hb")
