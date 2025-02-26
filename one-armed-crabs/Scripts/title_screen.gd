@@ -1,6 +1,5 @@
 extends Control
 
-@export var dest_scene :PackedScene
 @onready var cam2d = $Camera2D
 
 func _ready() -> void:
@@ -15,7 +14,7 @@ func _ready() -> void:
 func _on_start_button_pressed() -> void:
 	play_sound($Select_SFX)
 	print("level 1 start")
-	get_tree().change_scene_to_packed(dest_scene) #go to level 1 scene
+	get_tree().change_scene_to_file("res://Scenes/Levels/level_1.tscn") #go to level 1 scene
 	cam_move(cam2d, "position", Vector2(0,-300), 4.0)
 	#CrabOst.play_music_level()
 	
@@ -44,6 +43,7 @@ func _on_options_menu_is_menu() -> void:
 
 func _on_back_pressed() -> void:
 	play_sound($Select_SFX)
+	get_tree().change_scene_to_file("res://Scenes/title_screen.tscn")
 	$Panel/MarginContainer/VBoxContainer.visible = true
 	$creditLabel.visible = false
 	$Panel/MarginContainer/VBoxContainer/StartButton.grab_focus()

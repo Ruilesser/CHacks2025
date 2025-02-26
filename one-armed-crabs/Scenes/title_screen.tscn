@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://cdjuf36uxi0t0"]
+[gd_scene load_steps=13 format=3 uid="uid://cdjuf36uxi0t0"]
 
 [ext_resource type="Script" path="res://Scripts/title_screen.gd" id="1_sild0"]
-[ext_resource type="PackedScene" uid="uid://bx42b3pluv43w" path="res://Scenes/Levels/level_1.tscn" id="2_d3l58"]
 [ext_resource type="PackedScene" uid="uid://drb83he58w85o" path="res://Scenes/background.tscn" id="3_8ftl1"]
 [ext_resource type="FontFile" uid="uid://cb2fntkuysjit" path="res://Assets/Fonts/PixelOperator8-Bold.ttf" id="4_ol3wr"]
 [ext_resource type="FontFile" uid="uid://cbtsaym8ko4m6" path="res://Assets/Fonts/PixelOperator8.ttf" id="5_84je2"]
@@ -68,7 +67,6 @@ offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_sild0")
-dest_scene = ExtResource("2_d3l58")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
