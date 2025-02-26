@@ -280,5 +280,5 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_db80c")
 text = "QUIT"
 
 [connection signal="pressed" from="Back_Button" to="." method="_on_back_button_pressed"]
-[connection signal="pressed" from="Quit" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_back_button_pressed"]

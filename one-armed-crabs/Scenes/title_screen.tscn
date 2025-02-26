@@ -169,7 +169,6 @@ offset_bottom = 123.0
 scale = Vector2(0.5, 0.5)
 
 [node name="creditLabel" type="Panel" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -199,13 +198,13 @@ bbcode_enabled = true
 text = " [b]Credits[/b]
 
 	[u]Programming and Game Design[/u]
-	• Ali Almishri
-	• Farshad Islam
-	• Linus Yang
+	• spectaman
+	• orangepiccolo
+	• RUIware
 
 	[b]Artwork[/b]
 	• Beach assets by \"Crusenho\"
-	* Crab spritework by Ali Alimshri"
+	• Crab spritework by spectaman"
 
 [node name="Back" type="Button" parent="creditLabel"]
 layout_mode = 0
