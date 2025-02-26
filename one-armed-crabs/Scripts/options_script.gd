@@ -6,7 +6,7 @@ signal is_menu
 func _on_back_button_pressed() -> void:
 		emit_signal("is_menu")
 		$".".visible = false
-		if get_tree():
+		if get_tree().paused == true:
 			get_tree().paused = false
 
 func _input(event) -> void:
@@ -16,7 +16,7 @@ func _input(event) -> void:
 
 
 func _on_quit_pressed() -> void:
-	if get_tree():
+	if get_tree().paused == true:
 			get_tree().paused = false
 	if (get_tree().current_scene.name == "TitleScreen"):
 		get_tree().quit()

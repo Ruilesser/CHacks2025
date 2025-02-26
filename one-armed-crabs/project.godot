@@ -13,10 +13,14 @@ config_version=5
 config/name="One Armed Crabs"
 run/main_scene="res://Scenes/title_screen.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://Assets/crab/CRAB11.png"
 boot_splash/stretch/mode="viewport"
 boot_splash/stretch/aspect="keep"
 boot_splash/size/resizable=true
+
+[autoload]
+
+CrabOst="*res://Scenes/crab_ost.tscn"
 
 [display]
 
@@ -130,4 +134,3 @@ pause={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-renderer/rendering_method="gl_compatibility"

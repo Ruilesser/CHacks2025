@@ -65,6 +65,12 @@ func _process(delta: float) -> void:
 	
 	if isPlayer2 == false:
 		# Charging mechanic
+		
+		if Input.is_action_just_pressed("p1_down"):
+			play_sound($charge_sfx)
+		if Input.is_action_just_released("p1_down"):
+			play_sound($hit_sfx)
+		
 		if Input.is_action_pressed("p1_down") and not is_throwing and not is_returning:
 			current_charge = move_toward(current_charge, MAX_CHARGE, delta * CHARGE_INCREMENT)
 			charge_ratio = current_charge / MAX_CHARGE
@@ -114,8 +120,12 @@ func _process(delta: float) -> void:
 			current_charge = move_toward(current_charge, 0, delta * CHARGE_INCREMENT)  # Optional: Reset charge when not holding
 		# Reset charge when not holding the charge button
 		
+		if Input.is_action_just_pressed("p1_grab"):
+			play_sound($grab_sfx)
+		
 		if Input.is_action_pressed("p1_grab") and not is_throwing and not is_returning and canPick:
 			# print("omg guys you can grab stuff")
+			# play_sound($grab_sfx)
 			closest_area2d_to_clawbox = null # assume no thing is found
 			animated_claw.frame = 1
 			
@@ -154,13 +164,20 @@ func _process(delta: float) -> void:
 	#start of player2 body
 	else:
 		# Charging mechanic
+		if Input.is_action_just_pressed("p2_down"):
+			play_sound($charge_sfx)
+		if Input.is_action_just_released("p2_down"):
+			play_sound($hit_sfx)
+		
 		if Input.is_action_pressed("p2_down") and not is_throwing and not is_returning:
+			#play_sound($charge_sfx)
 			current_charge = move_toward(current_charge, MAX_CHARGE, delta * CHARGE_INCREMENT)
 			charge_ratio = current_charge / MAX_CHARGE
 			claw.rotation = lerp(default_rotation, -1*charge_rotation, charge_ratio)
 		
 		# Throwing action when button is released
 		elif Input.is_action_just_released("p2_down") and not is_throwing and not is_returning:
+			#play_sound($hit_sfx)
 			is_throwing = true
 				
 			claw.rotation = lerp(-1*charge_rotation, -1* throw_rotation, charge_ratio)
@@ -202,8 +219,12 @@ func _process(delta: float) -> void:
 		else:
 			current_charge = move_toward(current_charge, 0, delta * CHARGE_INCREMENT)  # Optional: Reset charge when not holding
 		# Reset charge when not holding the charge button
-		6
+		
+		if Input.is_action_just_pressed("p2_grab"):
+			play_sound($grab_sfx)
+		
 		if Input.is_action_pressed("p2_grab") and not is_throwing and not is_returning and canPick:
+			# play_sound($grab_sfx)
 			# print("omg guys you can grab stuff")
 			closest_area2d_to_clawbox = null # assume no thing is found
 			animated_claw.frame = 1
@@ -253,6 +274,7 @@ func _physics_process(delta: float) -> void:
 		# Handle jump.
 		if Input.is_action_just_pressed("p1_up") and is_on_floor():
 			velocity.y = JUMP_VELOCITY
+			play_sound($jump_sfx)
 			
 		if Input.is_action_just_released("p1_up") and velocity.y < 0:
 			velocity.y *= decelerate_on_jump_release
@@ -272,6 +294,7 @@ func _physics_process(delta: float) -> void:
 		# Handle jump.
 		if Input.is_action_just_pressed("p2_up") and is_on_floor():
 			velocity.y = JUMP_VELOCITY
+			play_sound($jump_sfx)
 			
 		if Input.is_action_just_released("p2_up") and velocity.y < 0:
 			velocity.y *= decelerate_on_jump_release
@@ -331,3 +354,8 @@ func _on_claw_grab_box_body_exited(body: Node2D) -> void:
 		#if body == closest_body_to_clawbox:
 			#closest_throwable_distance = INF
 	pass
+
+func play_sound(sfx: AudioStreamPlayer):
+	randomize()
+	sfx.pitch_scale = randf_range(0.8, 1.2)
+	sfx.play()

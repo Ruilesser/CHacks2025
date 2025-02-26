@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://if6ii0hbiqfo"]
+[gd_scene load_steps=25 format=3 uid="uid://if6ii0hbiqfo"]
 
 [ext_resource type="Shader" path="res://Shaders/colour_tint_shader.gdshader" id="1_62lvd"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_pc43o"]
@@ -12,6 +12,10 @@
 [ext_resource type="Texture2D" uid="uid://dmy7mclirpmiw" path="res://Assets/crab/CRAB13.png" id="9_vyao8"]
 [ext_resource type="Texture2D" uid="uid://bu48xcjlqsnag" path="res://Assets/crab/CLAW1.png" id="10_dxjkk"]
 [ext_resource type="Texture2D" uid="uid://c0hvpwt4xg6sl" path="res://Assets/crab/CLAW2.png" id="11_p4l15"]
+[ext_resource type="AudioStream" uid="uid://bv0k3ekaiaxmq" path="res://Assets/Music and SFX/charge.wav" id="13_06wb7"]
+[ext_resource type="AudioStream" uid="uid://bafg5sndcl1c4" path="res://Assets/Music and SFX/jump.wav" id="14_37i2l"]
+[ext_resource type="AudioStream" uid="uid://clfvd1o68h2yk" path="res://Assets/Music and SFX/hit.wav" id="15_r2tfq"]
+[ext_resource type="AudioStream" uid="uid://bgxh7q85scuki" path="res://Assets/Music and SFX/grab.wav" id="16_joaat"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_185r3"]
 size = Vector2(24, 22)
@@ -143,6 +147,22 @@ collision_mask = 7
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Claw/ClawGrabBox"]
 position = Vector2(-29, -19.5)
 shape = SubResource("RectangleShape2D_mottc")
+
+[node name="charge_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_06wb7")
+volume_db = -6.0
+
+[node name="jump_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_37i2l")
+volume_db = -8.0
+
+[node name="hit_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_r2tfq")
+volume_db = -8.0
+
+[node name="grab_sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_joaat")
+volume_db = -3.0
 
 [connection signal="area_entered" from="Claw/ClawGrabBox" to="." method="_on_claw_grab_box_area_entered"]
 [connection signal="area_exited" from="Claw/ClawGrabBox" to="." method="_on_claw_grab_box_area_exited"]

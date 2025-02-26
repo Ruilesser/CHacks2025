@@ -7,7 +7,8 @@ func _ready() -> void:
 	$Panel/MarginContainer/VBoxContainer/StartButton.grab_focus()
 	$OptionsMenu.visible = false
 	$creditLabel.visible = false
-	$Music.play()
+	CrabOst.play_music_level()
+	#$Music.play()
 	pass
 	
 	
@@ -16,6 +17,7 @@ func _on_start_button_pressed() -> void:
 	print("level 1 start")
 	get_tree().change_scene_to_packed(dest_scene) #go to level 1 scene
 	cam_move(cam2d, "position", Vector2(0,-300), 4.0)
+	#CrabOst.play_music_level()
 	
 func _on_options_pressed() -> void:
 	play_sound($Select_SFX)

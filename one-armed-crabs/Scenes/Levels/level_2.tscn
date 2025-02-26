@@ -115,13 +115,16 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_n7jr8")
 
 [node name="Game" type="Node2D"]
+process_mode = 3
 position = Vector2(260.111, 300)
 script = ExtResource("1_c4k81")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+process_mode = 1
 scale = Vector2(2, 2)
 
 [node name="Level 1" type="Node" parent="."]
+process_mode = 1
 
 [node name="WorldBoundary" type="StaticBody2D" parent="Level 1"]
 process_mode = 1
@@ -156,9 +159,10 @@ tile_map_data = PackedByteArray("AADs/wcAAAAAAAAAAADt/wcAAAABAAAAAADu/wcAAAABAAA
 tile_set = SubResource("TileSet_ttgja")
 
 [node name="WinCondition" parent="Level 1" instance=ExtResource("4_d8c4g")]
-process_mode = 1
+process_mode = 3
 position = Vector2(521, 392)
 dest_scene = ExtResource("6_fa856")
+string_scene = "res://Scenes/Levels/level_3.tscn"
 
 [node name="Death Node" parent="Level 1" instance=ExtResource("5_pu66s")]
 process_mode = 1

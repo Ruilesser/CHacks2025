@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dket003amkhkf"]
+
+[ext_resource type="Script" path="res://Scenes/crab_ost.gd" id="1_80cy8"]
+
+[node name="CrabOst" type="AudioStreamPlayer"]
+script = ExtResource("1_80cy8")

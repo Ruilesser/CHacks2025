@@ -10,13 +10,11 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("pause"):
-		pause_or_unpause()
-
-func pause_or_unpause():
-	if get_tree().paused == true:
-		$OptionsMenu.visible = false
-		get_tree().paused = false
-	elif get_tree().paused == false:
-		$OptionsMenu.visible = true
-		$OptionsMenu/Back_Button.grab_focus()
-		get_tree().paused = true
+		if get_tree().paused == true:
+			$OptionsMenu.visible = false
+			get_tree().paused = false
+		elif get_tree().paused == false:
+			$OptionsMenu.visible = true
+			$OptionsMenu/Back_Button.grab_focus()
+			get_tree().paused = true
+	
